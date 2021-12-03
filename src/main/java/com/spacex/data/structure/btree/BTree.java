@@ -33,4 +33,54 @@ public class BTree<Key extends Comparable<Key>, Value> {
             this.next = next;
         }
     }
+
+    public BTree() {
+        root = new Node(0);
+    }
+
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
+    public int size() {
+        return n;
+    }
+
+    public int height() {
+        return this.height;
+    }
+
+    public Value getValue(Key key) {
+        if (key == null) {
+            throw new IllegalArgumentException("argument to get() is null");
+        }
+        return this.search(this.root, key, this.height);
+    }
+
+    private Value search(Node x, Key key, int height) {
+        Entry[] children = x.children;
+        if (height == 0) {
+            for (int j = 0; j < x.m; j++) {
+                if (eq(key, children[j].key)) {
+                    return (Value) children[j].val;
+                }
+            }
+        } else {
+            for (int j = 0; j < x.m; j++) {
+                if (j + 1 == x.m || less(key, children[j + 1].key)) {
+                    return search(children[j].next, key, height - 1);
+                }
+            }
+        }
+        return null;
+    }
+
+    // comparison functions - make Comparable instead of Key to avoid casts
+    private boolean less(Comparable k1, Comparable k2) {
+        return k1.compareTo(k2) < 0;
+    }
+
+    private boolean eq(Comparable k1, Comparable k2) {
+        return k1.compareTo(k2) == 0;
+    }
 }

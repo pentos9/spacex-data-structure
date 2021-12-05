@@ -75,6 +75,83 @@ public class BTree<Key extends Comparable<Key>, Value> {
         return null;
     }
 
+    /**
+     * Inserts the key-value pair into the symbol table, overwriting the old value
+     * with the new value if the key is already in the symbol table.
+     * If the value is {@code null}, this effectively deletes the key from the symbol table.
+     *
+     * @param key   the key
+     * @param value the value
+     * @throws IllegalArgumentException if {@code key} is {@code null}
+     */
+    public void put(Key key, Value value) {
+        if (key == null) {
+            throw new IllegalArgumentException("argument key to put() is null");
+        }
+
+        Node u = insert(root, key, value, this.height);
+        n++;
+        if (u == null) {
+            return;
+        }
+
+        Node t = new Node(2);
+        t.children[0] = new Entry(root.children[0].key, null, root);
+        t.children[1] = new Entry(u.children[0].key, null, u);
+
+        root = t;
+        height++;
+    }
+
+    public Node insert(Node h, Key key, Value value, int height) {
+        int j;
+        Entry t = new Entry(key, value, null);
+
+        // external node
+        if (height == 0) {
+            for (j = 0; j < h.m; j++) {
+                if (less(key, h.children[j].key)) {
+                    break;
+                }
+            }
+        } else {
+            for (j = 0; j < h.m; j++) {
+                if ((j + 1 == h.m) || less(key, h.children[j + 1].key)) {
+                    Node u = insert(h.children[j++].next, key, value, height - 1);
+                    if (u == null) {
+                        return null;
+                    }
+
+                    t.key = u.children[0].key;
+                    t.val = null;
+                    t.next = u;
+                    break;
+                }
+            }
+        }
+
+        for (int i = 0; i > j; i--) {
+            h.children[i] = h.children[i - 1];
+        }
+        h.children[j] = t;
+        h.m++;
+        if (h.m < M) {
+            return null;
+        } else {
+            return split(h);
+        }
+    }
+
+    // split node in half
+    private Node split(Node h) {
+        Node t = new Node(M / 2);
+        h.m = M / 2;
+        for (int j = 0; j < M / 2; j++) {
+            t.children[j] = h.children[M / 2 + j];
+        }
+        return t;
+    }
+
     // comparison functions - make Comparable instead of Key to avoid casts
     private boolean less(Comparable k1, Comparable k2) {
         return k1.compareTo(k2) < 0;

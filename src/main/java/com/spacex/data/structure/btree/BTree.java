@@ -130,7 +130,7 @@ public class BTree<Key extends Comparable<Key>, Value> {
             }
         }
 
-        for (int i = 0; i > j; i--) {
+        for (int i = h.m; i > j; i--) {
             h.children[i] = h.children[i - 1];
         }
         h.children[j] = t;
@@ -154,7 +154,7 @@ public class BTree<Key extends Comparable<Key>, Value> {
 
     @Override
     public String toString() {
-        return toString(root, height, "\n");
+        return toString(root, height, "") + "\n";
     }
 
     private String toString(Node h, int height, String indent) {

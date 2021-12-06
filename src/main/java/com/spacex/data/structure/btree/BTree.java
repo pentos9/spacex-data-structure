@@ -152,6 +152,28 @@ public class BTree<Key extends Comparable<Key>, Value> {
         return t;
     }
 
+    @Override
+    public String toString() {
+        return toString(root, height, "\n");
+    }
+
+    private String toString(Node h, int height, String indent) {
+        StringBuilder stringBuilder = new StringBuilder();
+        Entry[] children = h.children;
+
+        if (height == 0) {
+            for (int j = 0; j < h.m; j++) {
+                stringBuilder.append(indent + children[j].key + " " + children[j].val + "\n");
+            }
+        } else {
+            for (int j = 0; j < h.m; j++) {
+                if (j > 0) stringBuilder.append(indent + "(" + children[j].key + ")\n");
+                stringBuilder.append(toString(children[j].next, height - 1, indent + "     "));
+            }
+        }
+        return stringBuilder.toString();
+    }
+
     // comparison functions - make Comparable instead of Key to avoid casts
     private boolean less(Comparable k1, Comparable k2) {
         return k1.compareTo(k2) < 0;

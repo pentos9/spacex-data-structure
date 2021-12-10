@@ -152,6 +152,14 @@ public class BTree<Key extends Comparable<Key>, Value> {
         return t;
     }
 
+    public void remove(Key key) {
+
+    }
+
+    private void remove(Node x, Key key) {
+
+    }
+
     @Override
     public String toString() {
         return toString(root, height, "") + "\n";

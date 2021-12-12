@@ -103,7 +103,7 @@ public class BTree<Key extends Comparable<Key>, Value> {
         height++;
     }
 
-    public Node insert(Node h, Key key, Value value, int height) {
+    private Node insert(Node h, Key key, Value value, int height) {
         int j;
         Entry t = new Entry(key, value, null);
 

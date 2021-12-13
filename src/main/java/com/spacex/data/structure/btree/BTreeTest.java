@@ -60,6 +60,10 @@ public class BTreeTest {
         System.out.println("cs.princeton.edu:  " + bTree.getValue("www.cs.princeton.edu"));
         System.out.println("hardvardsucks.com: " + bTree.getValue("www.harvardsucks.com"));
         System.out.println("simpsons.com:      " + bTree.getValue("www.simpsons.com"));
+
+        System.out.println(bTree.getValue("www.null.com"));
+        System.out.println(bTree.getValue("www.test.com"));
+        System.out.println(bTree.getValue("www.daoye-tech.edu"));
     }
 
 

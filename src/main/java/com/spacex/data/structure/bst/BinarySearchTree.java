@@ -63,4 +63,47 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
             return x.val;
         }
     }
+
+    public void put(Key key, Value value) {
+        if (key == null) {
+            throw new IllegalArgumentException("calls put() with a null key");
+        }
+
+        if (value == null) {
+            delete(key);
+            return;
+        }
+
+        root = put(root, key, value);
+        assert check();
+    }
+
+    private Node put(Node node, Key key, Value value) {
+        if (node == null) {
+            return new Node(key, value, 1);
+        }
+
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0) {
+            node.left = put(node.left, key, value);
+        } else if (cmp > 0) {
+            node.right = put(node.right, key, value);
+        } else {
+            node.val = value;
+        }
+        node.size = 1 + size(node.left) + size(node.right);
+        return node;
+    }
+
+    private void delete(Key key) {
+
+    }
+
+    private boolean check() {
+        // isBST()
+        // isSizeConsistent()
+        // isRankConsistent()
+
+        return false;
+    }
 }

@@ -96,7 +96,47 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     }
 
     private void delete(Key key) {
+        if (key == null) {
+            throw new IllegalArgumentException("calls delete() with a null key");
+        }
 
+        root = delete(root, key);
+        assert check();
+    }
+
+    private Node delete(Node node, Key key) {
+        if (key == null) {
+            return null;
+        }
+        int cmp = key.compareTo(root.key);
+        if (cmp < 0) {
+            node.left = delete(node.left, key);
+        } else if (cmp > 0) {
+            node.right = delete(node.right, key);
+        } else {
+            if (node.right == null) {
+                return node.left;
+            }
+            if (node.left == null) {
+                return node.right;
+            }
+
+            Node t = node;
+            node = min(node.right);
+            node.right = deleteMin(t.right);
+            node.left = t.left;
+        }
+
+        node.size = 1 + size(node.left) + size(node.right);
+        return node;
+    }
+
+    private Node min(Node right) {
+        return null;
+    }
+
+    private Node deleteMin(Node right) {
+        return null;
     }
 
     private boolean check() {

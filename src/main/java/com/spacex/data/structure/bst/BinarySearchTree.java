@@ -131,12 +131,30 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         return node;
     }
 
-    private Node min(Node right) {
-        return null;
+    private Node min(Node node) {
+        if (node.left == null) {
+            return node;
+        } else {
+            return min(node.right);
+        }
     }
 
-    private Node deleteMin(Node right) {
-        return null;
+    public void deleteMin() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException("calls deleteMin() with a null key");
+        }
+        root = deleteMin(root);
+        assert check();
+    }
+
+    private Node deleteMin(Node node) {
+        if (node.left == null) {
+            return node.right;
+        }
+
+        node.left = deleteMin(node.left);
+        node.size = 1 + size(node.left) + size(node.right);
+        return node;
     }
 
     private boolean check() {

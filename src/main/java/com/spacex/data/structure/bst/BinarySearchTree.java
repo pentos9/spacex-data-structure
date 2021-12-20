@@ -35,6 +35,17 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         }
     }
 
+    public int height() {
+        return height(root);
+    }
+
+    private int height(Node x) {
+        if (x == null) {
+            return -1;
+        }
+        return 1 + Math.max(height(x.left), height(x.right));
+    }
+
     public boolean contains(Key key) {
         if (key == null) {
             throw new IllegalArgumentException("calls contains() with a null key");

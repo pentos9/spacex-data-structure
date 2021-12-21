@@ -194,6 +194,40 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         // isSizeConsistent()
         // isRankConsistent()
 
+        if (!isBST()) {
+            System.out.println("Not in symmetric order");
+        }
+        if (!isSizeConsistent()) {
+            System.out.println("Subtree counts not consistent");
+        }
+        if (!isRankConsistent()) {
+            System.out.println("Ranks not consistent");
+        }
+        return isBST() && isSizeConsistent() && isRankConsistent();
+    }
+
+    private boolean isBST() {
+        return isBST(root, null, null);
+    }
+
+    private boolean isBST(Node x, Key min, Key max) {
+        if (x == null) {
+            return true;
+        }
+        if (min != null && x.key.compareTo(min) <= 0) {
+            return false;
+        }
+        if (max != null && x.key.compareTo(max) >= 0) {
+            return false;
+        }
+        return isBST(x.left, min, x.key) && isBST(x.right, max, x.key);
+    }
+
+    private boolean isSizeConsistent() {
+        return false;
+    }
+
+    private boolean isRankConsistent() {
         return false;
     }
 }

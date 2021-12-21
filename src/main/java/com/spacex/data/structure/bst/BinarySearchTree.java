@@ -1,5 +1,8 @@
 package com.spacex.data.structure.bst;
 
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     private Node root;
 
@@ -166,6 +169,24 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         node.left = deleteMin(node.left);
         node.size = 1 + size(node.left) + size(node.right);
         return node;
+    }
+
+    public Iterable<Key> levelOrder() {
+        Queue<Key> keys = new PriorityQueue<>();
+        Queue<Node> queue = new PriorityQueue<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            Node x = queue.remove();
+            if (x == null) {
+                continue;
+            }
+
+            keys.add(x.key);
+            queue.add(x.left);
+            queue.add(x.right);
+        }
+        return keys;
     }
 
     private boolean check() {

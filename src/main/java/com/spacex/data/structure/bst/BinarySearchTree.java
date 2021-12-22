@@ -224,10 +224,51 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     }
 
     private boolean isSizeConsistent() {
-        return false;
+        return isSizeConsistent(root);
+    }
+
+    private boolean isSizeConsistent(Node x) {
+        if (x == null) {
+            return true;
+        }
+        if (x.size != (size(x.left) + size(x.right) + 1)) {
+            return false;
+        }
+        return isSizeConsistent(x.left) && isSizeConsistent(x.right);
     }
 
     private boolean isRankConsistent() {
+        for (int i = 0; i < size(); i++) {
+            if (i != rank(select(i))) {
+                return false;
+            }
+        }
+
+        for (Key key : keys()) {
+            if (key.compareTo(select(rank(key))) != 0) {
+                return false;
+            }
+        }
         return false;
+    }
+
+    public Key select(int rank) {
+        return null;
+    }
+
+    private Key select(Node x, int rank) {
+        return null;
+    }
+
+    public int rank(Key key) {
+        return 0;
+    }
+
+    private int rank(Key key, Node x) {
+        return 0;
+    }
+
+    public Iterable<Key> keys() {
+        return null;
     }
 }

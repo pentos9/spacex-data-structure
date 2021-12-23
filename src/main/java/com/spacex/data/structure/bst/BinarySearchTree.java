@@ -253,11 +253,24 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     }
 
     public Key select(int rank) {
-        return null;
+        if (rank < 0 || rank >= size()) {
+            throw new IllegalArgumentException("argument to select() is invalid: " + rank);
+        }
+        return select(root, rank);
     }
 
     private Key select(Node x, int rank) {
-        return null;
+        if (x == null) {
+            return null;
+        }
+        int leftSize = size(x.left);
+        if (leftSize > rank) {
+            return select(x.left, rank);
+        } else if (leftSize < rank) {
+            return select(x.right, rank);
+        } else {
+            return x.key;
+        }
     }
 
     public int rank(Key key) {

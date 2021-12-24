@@ -274,11 +274,24 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     }
 
     public int rank(Key key) {
-        return 0;
+        if (key == null) {
+            throw new IllegalArgumentException("argument to rank() is null");
+        }
+        return rank(key, root);
     }
 
     private int rank(Key key, Node x) {
-        return 0;
+        if (key == null) {
+            return 0;
+        }
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) {
+            return rank(key);
+        } else if (cmp > 0) {
+            return 1 + size(x.left) + rank(key, x.right);
+        } else {
+            return size(x.left);
+        }
     }
 
     public Iterable<Key> keys() {

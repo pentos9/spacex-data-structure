@@ -1,5 +1,6 @@
 package com.spacex.data.structure.bst;
 
+import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -183,8 +184,13 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
             }
 
             keys.add(x.key);
-            queue.add(x.left);
-            queue.add(x.right);
+            if (x.left != null) {
+                queue.add(x.left);
+            }
+
+            if (x.right != null) {
+                queue.add(x.right);
+            }
         }
         return keys;
     }
@@ -274,14 +280,68 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     }
 
     public int rank(Key key) {
-        return 0;
+        if (key == null) {
+            throw new IllegalArgumentException("argument to rank() is null");
+        }
+        return rank(key, root);
     }
 
     private int rank(Key key, Node x) {
-        return 0;
+        if (key == null) {
+            return 0;
+        }
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) {
+            return rank(key);
+        } else if (cmp > 0) {
+            return 1 + size(x.left) + rank(key, x.right);
+        } else {
+            return size(x.left);
+        }
     }
 
     public Iterable<Key> keys() {
-        return null;
+        if (isEmpty()) {
+            return new PriorityQueue<>();
+        }
+        return keys(min(), max());
+    }
+
+    public Key min() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("calls min() with empty symbol table");
+        }
+        return min(root).key;
+    }
+
+    public Key max() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("calls max() with empty symbol table");
+        }
+        return max(root).key;
+    }
+
+    private Node max(Node x) {
+        if (x.right == null) {
+            return x;
+        } else {
+            return max(x.right);
+        }
+    }
+
+    public Iterable<Key> keys(Key low, Key high) {
+        if (low == null) {
+            throw new IllegalArgumentException("first argument to keys() is null ");
+        }
+        if (high == null) {
+            throw new IllegalArgumentException("second argument to keys() is null ");
+        }
+        Queue<Key> queue = new PriorityQueue<>();
+        keys(root, queue, low, high);
+        return queue;
+    }
+
+    private void keys(Node x, Queue<Key> queue, Key lo, Key hi) {
+        return;
     }
 }

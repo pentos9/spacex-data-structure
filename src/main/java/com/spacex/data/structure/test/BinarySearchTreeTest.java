@@ -17,5 +17,9 @@ public class BinarySearchTreeTest {
         for (String key : binarySearchTree.levelOrder()) {
             System.out.println(key);
         }
+
+        System.out.println("Tree Max:" + binarySearchTree.max());
+        System.out.println("Tree size:" + binarySearchTree.size());
+        System.out.println("Tree isEmpty:" + binarySearchTree.isEmpty());
     }
 }

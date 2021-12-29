@@ -1,5 +1,6 @@
 package com.spacex.data.structure.bst;
 
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -173,8 +174,8 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     }
 
     public Iterable<Key> levelOrder() {
-        Queue<Key> keys = new PriorityQueue<>();
-        Queue<Node> queue = new PriorityQueue<>();
+        Queue<Key> keys = new LinkedList<>();
+        Queue<Node> queue = new LinkedList<>();
         queue.add(root);
 
         while (!queue.isEmpty()) {
@@ -184,13 +185,8 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
             }
 
             keys.add(x.key);
-            if (x.left != null) {
-                queue.add(x.left);
-            }
-
-            if (x.right != null) {
-                queue.add(x.right);
-            }
+            queue.add(x.left);
+            queue.add(x.right);
         }
         return keys;
     }

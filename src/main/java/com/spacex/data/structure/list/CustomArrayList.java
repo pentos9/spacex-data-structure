@@ -1,25 +1,60 @@
 package com.spacex.data.structure.list;
 
+import java.util.Arrays;
+
 public class CustomArrayList<E> implements CustomList<E> {
+
+    private E[] elements;
+    private int size;
+
+    public CustomArrayList() {
+        this(10);
+    }
+
+    public CustomArrayList(int size) {
+        this.size = size;
+    }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size() == 0;
     }
 
     @Override
     public int size() {
-        return 0;
+        return this.size;
+    }
+
+    private void ensureCapacity(int needCapacity) {
+        if (needCapacity > elements.length) {
+            Object[] oldElements = this.elements;
+            int newSize = this.size * 2 + 1;
+            this.elements = (E[]) new Object[newSize];
+            this.elements = (E[]) Arrays.copyOf(oldElements, newSize);
+        }
     }
 
     @Override
     public boolean add(E element) {
-        return false;
+        ensureCapacity(this.size + 1);
+        elements[this.size++] = element;
+        return true;
+    }
+
+    private void checkRange(int index) {
+        if (index < 0 || index >= this.size) {
+            throw new IllegalArgumentException("illegal index:" + index);
+        }
     }
 
     @Override
     public boolean add(int index, E element) {
-        return false;
+        checkRange(index);
+        ensureCapacity(this.size + 1);
+        System.arraycopy(this.elements, index, elements, index + 1, size - index);
+        elements[index] = element;
+        this.size++;
+        return true;
     }
 
     @Override
@@ -29,7 +64,8 @@ public class CustomArrayList<E> implements CustomList<E> {
 
     @Override
     public E get(int index) {
-        return null;
+        E e = this.elements[index];
+        return e;
     }
 
     @Override
@@ -49,7 +85,8 @@ public class CustomArrayList<E> implements CustomList<E> {
 
     @Override
     public void clear() {
-
+        this.elements = null;
+        this.size = 0;
     }
 
     @Override

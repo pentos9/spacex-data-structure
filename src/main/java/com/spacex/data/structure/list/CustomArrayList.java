@@ -62,6 +62,10 @@ public class CustomArrayList<E> implements CustomList<E> {
 
     }
 
+    private void fastRemove(int index) {
+
+    }
+
     @Override
     public E get(int index) {
         E e = this.elements[index];
@@ -70,16 +74,28 @@ public class CustomArrayList<E> implements CustomList<E> {
 
     @Override
     public int indexOf(E element) {
-        return 0;
+        for (int i = 0; i < this.elements.length; i++) {
+            if (this.elements[i].equals(element)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
     public void set(int index, E element) {
-
+        checkRange(index);
+        ensureCapacity(this.size + 1);
+        this.elements[index] = element;
     }
 
     @Override
     public boolean contains(E element) {
+        for (E e : this.elements) {
+            if (e.equals(element)) {
+                return true;
+            }
+        }
         return false;
     }
 

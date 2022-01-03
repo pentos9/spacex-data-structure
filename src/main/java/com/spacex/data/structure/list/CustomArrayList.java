@@ -59,7 +59,21 @@ public class CustomArrayList<E> implements CustomList<E> {
 
     @Override
     public void remove(E element) {
-
+        if (element == null) {
+            for (int i = 0; i < this.size; i++) {
+                if (this.elements[i] == null) {
+                    fastRemove(i);
+                    return;
+                }
+            }
+        } else {
+            for (int i = 0; i < this.size; i++) {
+                if (element.equals(this.elements[i])) {
+                    fastRemove(i);
+                    return;
+                }
+            }
+        }
     }
 
     private void fastRemove(int index) {

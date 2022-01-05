@@ -13,6 +13,7 @@ public class CustomArrayList<E> implements CustomList<E> {
 
     public CustomArrayList(int size) {
         this.size = size;
+        this.elements = (E[]) new Object[size];
     }
 
     @Override
@@ -77,7 +78,11 @@ public class CustomArrayList<E> implements CustomList<E> {
     }
 
     private void fastRemove(int index) {
-
+        int movedNumber = this.size - index - 1;
+        if (movedNumber > 0) {
+            System.arraycopy(this.elements, index + 1, this.elements, index, movedNumber);
+        }
+        this.elements[--this.size] = null;
     }
 
     @Override
@@ -122,5 +127,13 @@ public class CustomArrayList<E> implements CustomList<E> {
     @Override
     public E[] toArray(E[] a) {
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomArrayList{" +
+                "elements=" + Arrays.toString(elements) +
+                ", size=" + size +
+                '}';
     }
 }

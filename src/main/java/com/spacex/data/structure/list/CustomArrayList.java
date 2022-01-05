@@ -11,9 +11,11 @@ public class CustomArrayList<E> implements CustomList<E> {
         this(10);
     }
 
-    public CustomArrayList(int size) {
-        this.size = size;
-        this.elements = (E[]) new Object[size];
+    public CustomArrayList(int initSize) {
+        if (initSize < 0) {
+            throw new IllegalArgumentException("illegal size:" + initSize);
+        }
+        this.elements = (E[]) new Object[initSize];
     }
 
     @Override
@@ -126,7 +128,7 @@ public class CustomArrayList<E> implements CustomList<E> {
 
     @Override
     public E[] toArray(E[] a) {
-        return null;
+        return this.elements;
     }
 
     @Override

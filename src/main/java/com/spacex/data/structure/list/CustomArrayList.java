@@ -45,7 +45,7 @@ public class CustomArrayList<E> implements CustomList<E> {
     }
 
     private void checkRange(int index) {
-        if (index < 0 || index >= this.size) {
+        if (index < 0 || index >= (this.size + 1)) {
             throw new IllegalArgumentException("illegal index:" + index);
         }
     }
@@ -112,11 +112,20 @@ public class CustomArrayList<E> implements CustomList<E> {
 
     @Override
     public boolean contains(E element) {
-        for (E e : this.elements) {
-            if (e.equals(element)) {
-                return true;
+        if (element == null) {
+            for (E e : this.elements) {
+                if (e == null) {
+                    return true;
+                }
+            }
+        } else {
+            for (E e : this.elements) {
+                if (element.equals(e)) {
+                    return true;
+                }
             }
         }
+
         return false;
     }
 

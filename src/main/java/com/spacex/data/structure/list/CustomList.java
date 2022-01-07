@@ -22,5 +22,5 @@ public interface CustomList<E> {
 
     void clear();
 
-    E[] toArray(E[] a);
+    E[] toArray();
 }

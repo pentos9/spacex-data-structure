@@ -1,6 +1,7 @@
 package com.spacex.data.structure.list;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class CustomArrayList<E> implements CustomList<E> {
 
@@ -140,7 +141,9 @@ public class CustomArrayList<E> implements CustomList<E> {
 
     @Override
     public void clear() {
-        this.elements = null;
+        for (int i = 0; i < this.size; i++) {
+            this.elements[i] = null;
+        }
         this.size = 0;
     }
 
@@ -150,10 +153,31 @@ public class CustomArrayList<E> implements CustomList<E> {
     }
 
     @Override
+    public Iterator<E> iterator() {
+        return new CustomIterator<>();
+    }
+
+    @Override
     public String toString() {
         return "CustomArrayList{" +
                 "elements=" + Arrays.toString(elements) +
                 ", size=" + size +
                 '}';
+    }
+
+    private class CustomIterator<E> implements Iterator<E> {
+
+        private int current = 0;
+
+        @Override
+        public boolean hasNext() {
+            return this.current < size();
+        }
+
+        @Override
+        public E next() {
+            E value = (E) elements[current++];
+            return value;
+        }
     }
 }

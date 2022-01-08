@@ -6,7 +6,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 public class CustomArrayListTestCase {
@@ -149,5 +152,29 @@ public class CustomArrayListTestCase {
 
         System.out.println("loopTimes:" + loopTimes);
         System.out.println(Arrays.toString(customList.toArray()));
+    }
+
+    @Test
+    public void testIterator() {
+        int loopTimes = (int) (Math.random() * 100);
+        for (int i = 0; i < loopTimes; i++) {
+            customList.add(String.valueOf(i));
+        }
+
+        System.out.println("testIterator loopTimes:" + loopTimes);
+        for (Object obj : customList) {
+            System.out.print(obj + "\t");
+        }
+
+        List list;
+        new ArrayList().add(null);
+        List l = new LinkedList<>();
+        for (int i = 0; i < 10; i++) {
+            l.add(null);
+            l.add(String.valueOf(i));
+        }
+
+        System.out.println(Arrays.toString(l.toArray()));
+
     }
 }

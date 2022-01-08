@@ -95,9 +95,18 @@ public class CustomArrayList<E> implements CustomList<E> {
 
     @Override
     public int indexOf(E element) {
-        for (int i = 0; i < this.elements.length; i++) {
-            if (this.elements[i].equals(element)) {
-                return i;
+
+        if (element == null) {
+            for (int i = 0; i < this.elements.length; i++) {
+                if (this.elements[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = 0; i < this.elements.length; i++) {
+                if (element.equals(this.elements[i])) {
+                    return i;
+                }
             }
         }
         return -1;
@@ -136,7 +145,7 @@ public class CustomArrayList<E> implements CustomList<E> {
     }
 
     @Override
-    public E[] toArray(E[] a) {
+    public E[] toArray() {
         return this.elements;
     }
 

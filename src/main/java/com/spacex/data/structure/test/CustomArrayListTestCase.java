@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.UUID;
+
 public class CustomArrayListTestCase {
 
     private CustomList customList;
@@ -16,19 +19,19 @@ public class CustomArrayListTestCase {
     }
 
     @Test
-    public void nonNull() {
+    public void testNonNull() {
         Assertions.assertNotNull(customList);
     }
 
     @Test
-    public void nullTest() {
+    public void testNullTest() {
         Assertions.assertTrue(customList.size() == 0);
         Assertions.assertTrue(customList.isEmpty());
         Assertions.assertFalse(customList.contains("Peace"));
     }
 
     @Test
-    public void add() {
+    public void testAdd() {
         Object number = 12;
         customList.add(number);
         Assertions.assertTrue(customList.get(0).equals(number));
@@ -36,7 +39,7 @@ public class CustomArrayListTestCase {
     }
 
     @Test
-    public void addByIndexTest() {
+    public void testAddByIndex() {
         int loopTimes = (int) (Math.random() * 100);
         for (int i = 0; i < loopTimes; i++) {
             customList.add(i, String.valueOf(i));
@@ -46,7 +49,7 @@ public class CustomArrayListTestCase {
     }
 
     @Test
-    public void get() {
+    public void testGet() {
         Assertions.assertTrue(customList.size() == 0);
         int loopTimes = 20;
         String prefix = "item-";
@@ -60,7 +63,7 @@ public class CustomArrayListTestCase {
     }
 
     @Test
-    public void sizeTest() {
+    public void testSize() {
         int loopTimes = (int) (Math.random() * 100);
         for (int i = 0; i < loopTimes; i++) {
             customList.add("Apple-" + i);
@@ -70,7 +73,7 @@ public class CustomArrayListTestCase {
     }
 
     @Test
-    public void destroyTest() {
+    public void testDestroy() {
         int loopTimes = (int) (Math.random() * 100);
         for (int i = 0; i < loopTimes; i++) {
             customList.add(String.valueOf(i));
@@ -82,5 +85,69 @@ public class CustomArrayListTestCase {
         customList.clear();
         Assertions.assertTrue(customList.size() == 0);
         Assertions.assertTrue(customList.isEmpty());
+    }
+
+    @Test
+    public void testRemove() {
+        int loopTimes = (int) (Math.random() * 100);
+        for (int i = 0; i < loopTimes; i++) {
+            customList.add(String.valueOf(i));
+        }
+
+        Assertions.assertTrue(customList.size() == loopTimes);
+
+        for (int i = 0; i < loopTimes; i++) {
+            customList.remove(customList.get(0));
+        }
+
+        Assertions.assertTrue(customList.size() == 0);
+        Assertions.assertTrue(customList.isEmpty());
+    }
+
+    @Test
+    public void testSet() {
+        int loopTimes = (int) (Math.random() * 100);
+
+        for (int i = 0; i < loopTimes; i++) {
+            customList.add(0, String.valueOf(i));
+        }
+        Assertions.assertFalse(customList.size() == 0);
+        Assertions.assertFalse(customList.isEmpty());
+
+        String randomString = UUID.randomUUID().toString();
+
+        int randomIndex = (int) (Math.random() * customList.size());
+        customList.set(randomIndex, randomString);
+        Assertions.assertTrue(randomString.equals(customList.get(randomIndex)));
+
+    }
+
+    @Test
+    public void testIndexOf() {
+        int loopTimes = (int) (Math.random() * 100);
+
+        for (int i = 0; i < loopTimes; i++) {
+            customList.add(0, String.valueOf(i));
+        }
+
+        int randomIndex = (int) (Math.random() * customList.size());
+        Object target = customList.get(randomIndex);
+
+        for (int i = 0; i < loopTimes; i++) {
+            Assertions.assertTrue(Integer.valueOf(randomIndex).equals(customList.indexOf(target)));
+        }
+
+        System.out.println(customList.indexOf(null));
+    }
+
+    @Test
+    public void testToArray() {
+        int loopTimes = (int) (Math.random() * 100);
+        for (int i = 0; i < loopTimes; i++) {
+            customList.add(String.valueOf(i));
+        }
+
+        System.out.println("loopTimes:" + loopTimes);
+        System.out.println(Arrays.toString(customList.toArray()));
     }
 }

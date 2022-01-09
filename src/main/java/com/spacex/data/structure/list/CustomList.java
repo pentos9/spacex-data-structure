@@ -1,6 +1,6 @@
 package com.spacex.data.structure.list;
 
-public interface CustomList<E> {
+public interface CustomList<E> extends Iterable<E> {
 
     boolean isEmpty();
 

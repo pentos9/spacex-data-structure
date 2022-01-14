@@ -10,8 +10,8 @@ public class CustomDoubleLinkedList<T> implements CustomList<T> {
 
     private class Node<T> {// 双向链表结点
         private T data;
-        private Node next;
-        private Node prev;
+        private Node<T> next;
+        private Node<T> prev;
 
         public Node() {
         }
@@ -28,8 +28,8 @@ public class CustomDoubleLinkedList<T> implements CustomList<T> {
     }
 
     // double LinkedList
-    private Node head = new Node();
-    private Node tail = new Node();
+    private Node<T> head = new Node<>();
+    private Node<T> tail = new Node<>();
 
     private int size;
 
@@ -105,11 +105,35 @@ public class CustomDoubleLinkedList<T> implements CustomList<T> {
 
     @Override
     public void remove(T element) {
-
+        int index = indexOf(element);
+        removeByIndex(index);
     }
 
-    public void removeByIndex(int index) {
+    public boolean removeByIndex(int index) {
+        if (index < 0 || index >= this.size) {
+            return false;
+        }
 
+        Node node = this.head;
+        if (index == 0) {
+            if (this.size == 1) {
+                this.head = null;
+                this.tail = null;
+            } else {
+                this.head.next.prev = null;
+                this.head = this.head.next;
+
+            }
+        } else if (index == (this.size - 1)) {
+            this.tail.prev.next = null;
+            this.tail = this.tail.prev;
+        } else {
+            Node previous = getNode(index - 1);
+            previous.next = previous.next.next;
+            previous.next.prev = previous;
+        }
+        this.size--;
+        return true;
     }
 
     @Override
@@ -127,31 +151,85 @@ public class CustomDoubleLinkedList<T> implements CustomList<T> {
 
     @Override
     public int indexOf(T element) {
-        return 0;
+        Node current = this.head;
+        int position = 0;
+        while (current != null) {
+            if (element == null) {
+                if (current.data == null) {
+                    return position;
+                }
+            } else {
+                if (element.equals(current.data)) {
+                    return position;
+                }
+            }
+            position++;
+        }
+        return -1;
     }
 
     @Override
-    public void set(int index, T element) {
+    public void set(int index, T data) {
+        if (index < 0 || index > this.size) {
+            return;
+        }
 
+        int position = 0;
+        Node temp = this.head;
+        while (position < this.size) {
+            temp = temp.next;
+            position++;
+        }
+        temp.data = data;
     }
 
     @Override
     public boolean contains(T element) {
-        return false;
+        return indexOf(element) != -1;
     }
 
     @Override
     public void clear() {
-
+        Node<T> current = this.head;
+        while (current != null) {
+            current.data = null;
+            current = current.next;
+        }
+        this.head = null;
+        this.size = 0;
     }
 
     @Override
     public T[] toArray() {
-        return (T[]) new Object[0];
+        T[] result = (T[]) new Object[this.size];
+        int position = 0;
+        Node current = this.head;
+        while (position < this.size) {
+            result[position] = (T) current.data;
+            current = current.next;
+            position++;
+        }
+        return result;
     }
 
     @Override
     public Iterator iterator() {
-        return null;
+        return new DoubleLinkedListIterator<>();
+    }
+
+    private class DoubleLinkedListIterator<T> implements Iterator<T> {
+        private int step;
+
+        @Override
+        public boolean hasNext() {
+            return step < size();
+        }
+
+        @Override
+        public T next() {
+            Node<T> node = getNode(step);
+            step++;
+            return node.data;
+        }
     }
 }

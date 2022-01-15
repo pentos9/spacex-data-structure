@@ -22,5 +22,5 @@ public interface CustomList<E> extends Iterable<E> {
 
     void clear();
 
-    E[] toArray();
+    Object[] toArray();
 }

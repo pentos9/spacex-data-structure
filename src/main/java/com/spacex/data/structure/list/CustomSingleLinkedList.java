@@ -185,8 +185,8 @@ public class CustomSingleLinkedList<T> implements CustomList<T> {
     }
 
     @Override
-    public T[] toArray() {
-        T[] result = (T[]) new Object[this.size];
+    public Object[] toArray() {
+        Object[] result = new Object[this.size];
         Node temp = this.head;
         int position = 0;
         while (position < this.size) {

@@ -138,7 +138,7 @@ public class CustomDoubleLinkedList<T> implements CustomList<T> {
 
     @Override
     public T get(int index) {
-        if (index < 0 || index < this.size) {
+        if (index < 0 || index >= this.size) {
             throw new IllegalArgumentException("illegal argument index:" + index);
         }
 
@@ -163,6 +163,7 @@ public class CustomDoubleLinkedList<T> implements CustomList<T> {
                     return position;
                 }
             }
+            current = current.next;
             position++;
         }
         return -1;
@@ -176,7 +177,7 @@ public class CustomDoubleLinkedList<T> implements CustomList<T> {
 
         int position = 0;
         Node temp = this.head;
-        while (position < this.size) {
+        while (position < index) {
             temp = temp.next;
             position++;
         }
@@ -200,8 +201,8 @@ public class CustomDoubleLinkedList<T> implements CustomList<T> {
     }
 
     @Override
-    public T[] toArray() {
-        T[] result = (T[]) new Object[this.size];
+    public Object[] toArray() {
+        T[] result = (T[]) java.lang.reflect.Array.newInstance(this.get(0).getClass(), this.size);
         int position = 0;
         Node current = this.head;
         while (position < this.size) {
@@ -210,6 +211,25 @@ public class CustomDoubleLinkedList<T> implements CustomList<T> {
             position++;
         }
         return result;
+    }
+
+    public <T> T[] toArray(T[] array) {
+        if (array.length < this.size) {
+            array = (T[]) java.lang.reflect.Array.newInstance(array.getClass().getComponentType(), size);
+        }
+
+        int position = 0;
+        Node current = this.head;
+        while (position < this.size) {
+            array[position] = (T) current.data;
+            current = current.next;
+            position++;
+        }
+
+        if (array.length > this.size) {
+            array[this.size] = null;
+        }
+        return array;
     }
 
     @Override

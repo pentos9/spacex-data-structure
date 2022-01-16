@@ -1,13 +1,13 @@
 package com.spacex.data.structure.test;
 
 import com.spacex.data.structure.list.CustomDoubleLinkedList;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -18,6 +18,11 @@ public class CustomDoubleLinkedListTest implements BaseListTest {
     @BeforeEach
     public void init() {
         doubleLinkedList = new CustomDoubleLinkedList<>();
+    }
+
+    @AfterEach
+    public void tearDownAfterEach() {
+
     }
 
     @Test
@@ -171,6 +176,17 @@ public class CustomDoubleLinkedListTest implements BaseListTest {
         }
         Object[] array = doubleLinkedList.toArray();
         System.out.println(Arrays.toString(array));
+    }
+
+    @Test
+    public void testToArrayWithArrayObject() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        for (int i = 0; i < total; i++) {
+            doubleLinkedList.add(UUID.randomUUID().toString());
+        }
+
+        Object[] arrays = doubleLinkedList.toArray(new String[0]);
+        System.out.println(Arrays.toString(arrays));
     }
 
     @Test

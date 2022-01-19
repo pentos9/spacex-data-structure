@@ -160,8 +160,14 @@ public class CustomDoubleLinkedListTest implements BaseListTest {
         for (int i = 0; i < total; i++) {
             doubleLinkedList.add(UUID.randomUUID().toString());
         }
+        if (total < 0) {
+            System.out.println("total:" + total);
+        }
 
         int randomIndex = ThreadLocalRandom.current().nextInt(total);
+        if (randomIndex < 0) {
+            System.out.println("randomIndex:" + randomIndex);
+        }
         String result = doubleLinkedList.get(randomIndex);
         int indexOf = doubleLinkedList.indexOf(result);
         Assertions.assertTrue(indexOf == randomIndex);

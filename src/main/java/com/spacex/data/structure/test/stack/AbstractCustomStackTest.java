@@ -2,6 +2,8 @@ package com.spacex.data.structure.test.stack;
 
 import com.spacex.data.structure.stack.ArrayCustomStack;
 import com.spacex.data.structure.stack.CustomStack;
+import com.spacex.data.structure.stack.SingleLinkedListCustomStack;
+import com.spacex.data.structure.stack.exception.EmptyStackException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,19 +90,29 @@ public abstract class AbstractCustomStackTest {
             Assertions.assertTrue(stack.size() == (oldSize - 1));
         }
 
-        for (int i = 0; i < total; i++) {
+        for (int i = 0; i < stack.size(); i++) {
             stack.pop();
         }
 
         Assertions.assertTrue(stack.size() == 0);
         Assertions.assertTrue(stack.isEmpty());
+    }
 
-        for (int i = 0; i < 200; i++) {
+    @Test
+    public void testPopEmptyStack() {
+        int total = initStack();
+        for (int i = 0; i < total; i++) {
             stack.pop();
+        }
+
+        if (stack instanceof SingleLinkedListCustomStack) {
+            Assertions.assertThrowsExactly(EmptyStackException.class, () -> {
+                stack.pop();
+            });
         }
     }
 
-    private int initStack() {
+    protected int initStack() {
         int total = ThreadLocalRandom.current().nextInt(MAX_SIZE + 1);
         for (int i = 0; i < total; i++) {
             stack.push(UUID.randomUUID().toString());

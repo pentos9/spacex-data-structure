@@ -46,6 +46,9 @@ public class ArrayCustomStack<E> implements CustomStack<E> {
 
     @Override
     public E pop() {
+        if (isEmpty()) {
+            return null;
+        }
         E item = this.elementData[top];
         this.elementData[top--] = null;
         return item;
@@ -63,13 +66,13 @@ public class ArrayCustomStack<E> implements CustomStack<E> {
 
     private int indexOf(Object o, int startIndex) {
         if (o == null) {
-            for (int i = startIndex; i < size() - 1; i++) {
+            for (int i = startIndex; i < size(); i++) {
                 if (this.elementData[i] == null) {
                     return i;
                 }
             }
         } else {
-            for (int i = startIndex; i < size() - 1; i++) {
+            for (int i = startIndex; i < size(); i++) {
                 if (o.equals(this.elementData[i])) {
                     return i;
                 }
@@ -83,8 +86,23 @@ public class ArrayCustomStack<E> implements CustomStack<E> {
         for (int i = 0; i < this.elementData.length; i++) {
             this.elementData[i] = null;
         }
-        this.elementData = null;
         this.top = -1;
+    }
+
+    public String toString() {
+        Iterator<E> it = iterator();
+        if (!it.hasNext())
+            return "[]";
+
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        for (; ; ) {
+            E e = it.next();
+            sb.append(e == this ? "(this Collection)" : e);
+            if (!it.hasNext())
+                return sb.append(']').toString();
+            sb.append(',').append(' ');
+        }
     }
 
     @Override

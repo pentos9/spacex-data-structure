@@ -1,20 +1,16 @@
 package com.spacex.data.structure.queue;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 
-public class LinkedListCustomQueue<E> implements CustomQueue<E> {
+public class JdkLinkedListCustomQueue<E> implements CustomQueue<E> {
 
-    private class Node<E> {
-        private E data;
-        private Node<E> next;
-    }
-
-    private Node<E> front;
-    private Node<E> rear;
     private int size;
+    private LinkedList<E> list;
 
-    public LinkedListCustomQueue() {
+    public JdkLinkedListCustomQueue() {
         this.size = 0;
+        this.list = new LinkedList<>();
     }
 
     @Override
@@ -34,21 +30,26 @@ public class LinkedListCustomQueue<E> implements CustomQueue<E> {
 
     @Override
     public boolean enQueue(E data) {
-        return false;
+        this.list.addLast(data);
+        this.size++;
+        return true;
     }
 
     @Override
     public E deQueue() {
-        return null;
+        if (isEmpty()) {
+            throw new RuntimeException("deQueue failed, queue is empty!");
+        }
+        return this.list.removeLast();
     }
 
     @Override
     public E peek() {
-        return null;
+        return this.list.peek();
     }
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return this.list.iterator();
     }
 }

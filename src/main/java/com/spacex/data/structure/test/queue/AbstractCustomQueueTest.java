@@ -79,9 +79,23 @@ public abstract class AbstractCustomQueueTest {
         for (int i = 0; i < total; i++) {
             if (i == 0) {
                 uuid = UUID.randomUUID().toString();
+                customQueue.enQueue(uuid);
+                continue;
             }
-            customQueue.enQueue(uuid);
+            customQueue.enQueue(UUID.randomUUID().toString());
         }
         Assertions.assertTrue(uuid.equals(customQueue.peek()));
+    }
+
+    @Test
+    public void testForEach() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        for (int i = 0; i < total; i++) {
+            customQueue.enQueue(UUID.randomUUID().toString());
+        }
+
+        for (String item : customQueue) {
+            System.out.println(item);
+        }
     }
 }

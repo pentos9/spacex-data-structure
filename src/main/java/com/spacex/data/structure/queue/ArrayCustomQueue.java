@@ -78,14 +78,18 @@ public class ArrayCustomQueue<E> implements CustomQueue<E> {
 
     private class ArrayCustomQueueIterator<E> implements Iterator<E> {
 
+        private int cursor = 0;
+
         @Override
         public boolean hasNext() {
-            return false;
+            return cursor < size();
         }
 
         @Override
         public E next() {
-            return null;
+            E item = (E) elementData[cursor];
+            cursor++;
+            return item;
         }
     }
 }

@@ -1,9 +1,7 @@
-package com.spacex.data.structure.test;
+package com.spacex.data.structure.test.list;
 
-import com.spacex.data.structure.list.CustomArrayList;
 import com.spacex.data.structure.list.CustomList;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,14 +10,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-public class CustomArrayListTestCase {
+public abstract class AbstractCustomListTest {
 
-    private CustomList customList;
+    protected CustomList customList;
 
-    @BeforeEach
-    public void init() {
-        customList = new CustomArrayList();
-    }
+    protected abstract void init();
 
     @Test
     public void testNonNull() {

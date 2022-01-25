@@ -1,4 +1,4 @@
-package com.spacex.data.structure.test;
+package com.spacex.data.structure.test.list;
 
 import com.spacex.data.structure.list.CustomDoubleLinkedList;
 import org.junit.jupiter.api.AfterEach;

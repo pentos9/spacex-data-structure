@@ -1,4 +1,4 @@
-package com.spacex.data.structure.test;
+package com.spacex.data.structure.test.list;
 
 public interface BaseListTest {
     void testNonNull();

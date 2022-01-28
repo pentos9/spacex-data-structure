@@ -1,7 +1,5 @@
 package com.spacex.data.structure.customtree;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 public class BinarySearchTree<T extends Comparable> {
 
     private class Node<T> {
@@ -70,8 +68,28 @@ public class BinarySearchTree<T extends Comparable> {
                 contains(current.right, data);
     }
 
-    public void traverse() {
+    public void preOrderTraverse(Node<T> node) {
+        if (node != null) {
+            System.out.print(" " + node.data);
+            preOrderTraverse(node.left);
+            preOrderTraverse(node.right);
+        }
+    }
 
+    public void inOrderTraverse(Node<T> node) {
+        if (node != null) {
+            inOrderTraverse(node.left);
+            System.out.print(" " + node.data);
+            inOrderTraverse(node.right);
+        }
+    }
+
+    public void postOrderTraverse(Node<T> node) {
+        if (node != null) {
+            postOrderTraverse(node.left);
+            postOrderTraverse(node.right);
+            System.out.print(" " + node.data);
+        }
     }
 
     public void delete(T data) {

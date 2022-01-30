@@ -1,5 +1,7 @@
 package com.spacex.data.structure.customtree;
 
+import java.util.Stack;
+
 public class BinarySearchTree<T extends Comparable> {
 
     private class Node<T> {
@@ -74,6 +76,22 @@ public class BinarySearchTree<T extends Comparable> {
             preOrderTraverse(node.left);
             preOrderTraverse(node.right);
         }
+    }
+
+    public void preOrderNonRecursiveTraverse(Node<T> root) {
+        Stack<Node<T>> stack = new Stack<>();
+        Node<T> tNode = root;
+        while (tNode != null || !stack.isEmpty()) {
+            if (tNode != null) {
+                System.out.print(tNode.data + " ");
+                stack.push(tNode);
+                tNode = tNode.left;
+            } else { // tNode == null && !stack.isEmpty()
+                Node<T> node = stack.pop();
+                tNode = node.right;
+            }
+        }
+
     }
 
     public void inOrderTraverse(Node<T> node) {

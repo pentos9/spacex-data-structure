@@ -102,6 +102,10 @@ public class BinarySearchTree<T extends Comparable> {
         }
     }
 
+    public void inOrderNonRecursiveTraverse(Node<T> node) {
+        Stack<Node<T>> stack = new Stack<>();
+    }
+
     public void postOrderTraverse(Node<T> node) {
         if (node != null) {
             postOrderTraverse(node.left);
@@ -109,6 +113,11 @@ public class BinarySearchTree<T extends Comparable> {
             System.out.print(" " + node.data);
         }
     }
+
+    public void postOrderNonRecursiveTraverse(Node<T> node) {
+
+    }
+
 
     public void delete(T data) {
 

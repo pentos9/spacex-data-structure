@@ -126,8 +126,32 @@ public class BinarySearchTree<T extends Comparable> {
         }
     }
 
-    public void postOrderNonRecursiveTraverse(Node<T> node) {
+    public void postOrderNonRecursiveTraverse(Node<T> root) {
+        if (root == null) {
+            return;
+        }
 
+        Stack<Node<T>> s1 = new Stack<>();
+        Stack<Node<T>> s2 = new Stack<>();
+
+        s1.push(root);
+
+        while (!s1.isEmpty()) {
+            Node<T> current = s1.pop();
+            s2.push(current);
+            if (current.left != null) {
+                s1.push(current.left);
+            }
+
+            if (current.right != null) {
+                s1.push(current.right);
+            }
+        }
+
+        while (!s2.isEmpty()) {
+            Node<T> current = s2.pop();
+            System.out.println(current.data);
+        }
     }
 
 

@@ -18,14 +18,14 @@ public class BinarySearchTree<T extends Comparable> {
     private Node<T> root;
 
     public boolean isEmpty() {
-        return root == null;
+        return this.root == null;
     }
 
     public int size() {
         return size(this.root);
     }
 
-    public int size(Node<T> node) {
+    private int size(Node<T> node) {
         if (node == null) {
             return 0;
         } else {

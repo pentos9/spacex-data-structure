@@ -36,4 +36,45 @@ public abstract class AbstractBinarySearchTreeTest {
     public void testEmpty() {
 
     }
+
+    @Test
+    public void testAdd() {
+
+    }
+
+    @Test
+    public void testContains() {
+
+    }
+
+    @Test
+    public void testPreOrderTraverse() {
+
+    }
+
+    @Test
+    public void testInOrderTraverse() {
+
+    }
+
+    @Test
+    public void testPostOrderTraverse() {
+
+    }
+
+    @Test
+    public void testPreOrderNonRecursiveTraverse() {
+
+    }
+
+    @Test
+    public void testInOrderNonRecursiveTraverse() {
+
+    }
+
+    @Test
+    public void testPostOrderNonRecursiveTraverse() {
+        
+    }
+
 }

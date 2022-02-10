@@ -156,6 +156,21 @@ public class BinarySearchTree<T extends Comparable> {
 
 
     public void delete(T data) {
+        this.delete(this.root, data);
+    }
 
+    private Node<T> delete(Node<T> root, T key) {
+        // 1. Find the node to be deleted
+        // 2. Remove it and replace it with its successor/predecessor and update the BST.
+
+        if (this.root == null) {
+            return this.root;
+        }
+
+        return null;
+    }
+
+    public Node<T> search(T data) {
+        return null;
     }
 }

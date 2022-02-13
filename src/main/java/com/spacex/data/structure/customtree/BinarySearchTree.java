@@ -163,10 +163,26 @@ public class BinarySearchTree<T extends Comparable> {
         // 1. Find the node to be deleted
         // 2. Remove it and replace it with its successor/predecessor and update the BST.
 
-        if (this.root == null) {
-            return this.root;
+        if (root == null) {
+            return root;
         }
 
+        if (key.compareTo(root.data) > 0) {
+            root.right = delete(root.right, key);
+        } else if (key.compareTo(root.data) < 0) {
+            root.left = delete(root.left, key);
+        } else {// found the target
+
+        }
+
+        return root;
+    }
+
+    private Node<T> successor(Node<T> root) {
+        return null;
+    }
+
+    private Node<T> predecessor(Node<T> root) {
         return null;
     }
 

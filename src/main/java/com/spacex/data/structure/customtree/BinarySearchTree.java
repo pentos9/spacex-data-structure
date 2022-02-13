@@ -172,7 +172,17 @@ public class BinarySearchTree<T extends Comparable> {
         } else if (key.compareTo(root.data) < 0) {
             root.left = delete(root.left, key);
         } else {// found the target
-
+            if (root.left == null && root.right == null) {
+                root = null;
+            } else if (root.right != null) {
+                Node<T> successor = successor(root);
+                root.data = (successor == null ? null : successor.data);
+                root.right = delete(root.right, root.data);
+            } else {
+                Node<T> predecessor = predecessor(root);
+                root.data = (predecessor == null ? null : predecessor.data);
+                root.left = delete(root.left, root.data);
+            }
         }
 
         return root;

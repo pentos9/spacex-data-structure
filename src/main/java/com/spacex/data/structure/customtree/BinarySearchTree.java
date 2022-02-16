@@ -189,11 +189,19 @@ public class BinarySearchTree<T extends Comparable> {
     }
 
     private Node<T> successor(Node<T> root) {
-        return null;
+        root = root.right;
+        while (root.left != null) {
+            root = root.left;
+        }
+        return root;
     }
 
     private Node<T> predecessor(Node<T> root) {
-        return null;
+        root = root.left;
+        while (root.right != null) {
+            root = root.right;
+        }
+        return root;
     }
 
     public Node<T> search(T data) {

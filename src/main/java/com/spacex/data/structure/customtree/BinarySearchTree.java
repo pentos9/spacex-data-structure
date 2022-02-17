@@ -33,6 +33,17 @@ public class BinarySearchTree<T extends Comparable> {
         }
     }
 
+    public int height() {
+        return height(this.root);
+    }
+
+    private int height(Node<T> node) {
+        if (node == null) {
+            return -1;
+        }
+        return 1 + Math.max(height(node.left), height(node.right));
+    }
+
     public void add(T data) {
         this.root = add(this.root, data);
     }

@@ -4,6 +4,7 @@ import com.spacex.data.structure.customtree.BinarySearchTree;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class AbstractBinarySearchTreeTest {
@@ -24,22 +25,37 @@ public abstract class AbstractBinarySearchTreeTest {
 
     @Test
     public void testNull() {
-
+        Assertions.assertNotNull(tree);
+        Assertions.assertTrue(tree.isEmpty());
+        Assertions.assertTrue(tree.size() == 0);
     }
 
     @Test
     public void testNonNull() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        for (int i = 0; i < total; i++) {
+            String random = UUID.randomUUID().toString();
+            tree.add(random);
+        }
 
+        Assertions.assertFalse(tree.isEmpty());
+        Assertions.assertFalse(tree.size() == 0);
     }
 
     @Test
     public void testEmpty() {
-
+        Assertions.assertTrue(tree.isEmpty());
     }
 
     @Test
     public void testAdd() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        for (int i = 0; i < total; i++) {
+            String random = UUID.randomUUID().toString();
+            tree.add(random);
+        }
 
+        Assertions.assertTrue(tree.size() == total);
     }
 
     @Test
@@ -74,7 +90,7 @@ public abstract class AbstractBinarySearchTreeTest {
 
     @Test
     public void testPostOrderNonRecursiveTraverse() {
-        
+
     }
 
 }

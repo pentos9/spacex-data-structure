@@ -60,17 +60,38 @@ public abstract class AbstractBinarySearchTreeTest {
 
     @Test
     public void testContains() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        for (int i = 0; i < total; i++) {
+            String random = UUID.randomUUID().toString();
+            tree.add(random);
+        }
 
+
+        Assertions.assertFalse(tree.conntains(""));
+        String random = UUID.randomUUID().toString();
+        tree.add(random);
+        Assertions.assertTrue(tree.conntains(random));
     }
 
     @Test
     public void testPreOrderTraverse() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        for (int i = 0; i < total; i++) {
+            String random = UUID.randomUUID().toString();
+            tree.add(random);
+        }
 
+        tree.preOrderTraverse();
     }
 
     @Test
     public void testInOrderTraverse() {
-
+        int total = ThreadLocalRandom.current().nextInt(100);
+        for (int i = 0; i < total; i++) {
+            String random = UUID.randomUUID().toString();
+            tree.add(random);
+        }
+        tree.inOrderTraverse();
     }
 
     @Test

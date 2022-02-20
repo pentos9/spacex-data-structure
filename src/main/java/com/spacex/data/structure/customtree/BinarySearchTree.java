@@ -81,7 +81,11 @@ public class BinarySearchTree<T extends Comparable> {
                 contains(current.right, data);
     }
 
-    public void preOrderTraverse(Node<T> node) {
+    public void preOrderTraverse() {
+        preOrderTraverse(this.root);
+    }
+
+    private void preOrderTraverse(Node<T> node) {
         if (node != null) {
             System.out.print(" " + node.data);
             preOrderTraverse(node.left);
@@ -105,7 +109,11 @@ public class BinarySearchTree<T extends Comparable> {
 
     }
 
-    public void inOrderTraverse(Node<T> node) {
+    public void inOrderTraverse() {
+        this.inOrderTraverse(this.root);
+    }
+
+    private void inOrderTraverse(Node<T> node) {
         if (node != null) {
             inOrderTraverse(node.left);
             System.out.print(" " + node.data);
@@ -113,7 +121,11 @@ public class BinarySearchTree<T extends Comparable> {
         }
     }
 
-    public void inOrderNonRecursiveTraverse(Node<T> root) {
+    public void inOrderNonRecursiveTraverse() {
+        this.inOrderNonRecursiveTraverse(this.root);
+    }
+
+    private void inOrderNonRecursiveTraverse(Node<T> root) {
         if (root != null) {
             Stack<Node<T>> stack = new Stack<>();
             while (!stack.isEmpty() || root != null) {
@@ -129,7 +141,12 @@ public class BinarySearchTree<T extends Comparable> {
         }
     }
 
-    public void postOrderTraverse(Node<T> node) {
+
+    public void postOrderTraverse() {
+        this.postOrderTraverse(this.root);
+    }
+
+    private void postOrderTraverse(Node<T> node) {
         if (node != null) {
             postOrderTraverse(node.left);
             postOrderTraverse(node.right);
@@ -137,7 +154,11 @@ public class BinarySearchTree<T extends Comparable> {
         }
     }
 
-    public void postOrderNonRecursiveTraverse(Node<T> root) {
+    public void postOrderNonRecursiveTraverse() {
+        this.postOrderNonRecursiveTraverse(this.root);
+    }
+
+    private void postOrderNonRecursiveTraverse(Node<T> root) {
         if (root == null) {
             return;
         }

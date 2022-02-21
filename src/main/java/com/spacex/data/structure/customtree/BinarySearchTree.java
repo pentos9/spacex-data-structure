@@ -1,5 +1,7 @@
 package com.spacex.data.structure.customtree;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class BinarySearchTree<T extends Comparable> {
@@ -190,6 +192,62 @@ public class BinarySearchTree<T extends Comparable> {
         }
     }
 
+    public void depthOrderTraverse() {
+        this.depthOrderTraverse(this.root);
+    }
+
+    /**
+     * 度优先遍历用的是栈，而广度优先遍历要用队列来实现
+     *
+     * @param root
+     */
+    private void depthOrderTraverse(Node<T> root) {
+        if (root == null) {
+            return;
+        }
+
+        LinkedList<Node> stack = new LinkedList<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Node<T> node = stack.pop();
+            System.out.print(" " + node.data);
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+        }
+    }
+
+    public void bfs() {
+        this.bfs(this.root);
+    }
+
+    /**
+     * 度优先遍历用的是栈，而广度优先遍历要用队列来实现
+     *
+     * @param root
+     */
+    private void bfs(Node<T> root) {
+        if (root == null) {
+            return;
+        }
+
+        Queue<Node<T>> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node<T> node = queue.poll();
+            System.out.print(" " + node.data);
+            if (node.left != null) {
+                queue.add(node.left);
+            }
+            if (node.right != null) {
+                queue.add(node.right);
+            }
+        }
+    }
 
     public void delete(T data) {
         this.delete(this.root, data);

@@ -93,7 +93,11 @@ public class BinarySearchTree<T extends Comparable> {
         }
     }
 
-    public void preOrderNonRecursiveTraverse(Node<T> root) {
+    public void preOrderNonRecursiveTraverse() {
+        this.preOrderNonRecursiveTraverse(this.root);
+    }
+
+    private void preOrderNonRecursiveTraverse(Node<T> root) {
         Stack<Node<T>> stack = new Stack<>();
         Node<T> tNode = root;
         while (tNode != null || !stack.isEmpty()) {
@@ -182,7 +186,7 @@ public class BinarySearchTree<T extends Comparable> {
 
         while (!s2.isEmpty()) {
             Node<T> current = s2.pop();
-            System.out.println(current.data);
+            System.out.print(" " + current.data);
         }
     }
 

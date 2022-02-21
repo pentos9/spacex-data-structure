@@ -73,45 +73,49 @@ public abstract class AbstractBinarySearchTreeTest {
         Assertions.assertTrue(tree.conntains(random));
     }
 
-    @Test
-    public void testPreOrderTraverse() {
+    private BinarySearchTree initGoodTree() {
         int total = ThreadLocalRandom.current().nextInt(100);
         for (int i = 0; i < total; i++) {
             String random = UUID.randomUUID().toString();
             tree.add(random);
         }
+        return tree;
+    }
 
+    @Test
+    public void testPreOrderTraverse() {
+        initGoodTree();
         tree.preOrderTraverse();
     }
 
     @Test
     public void testInOrderTraverse() {
-        int total = ThreadLocalRandom.current().nextInt(100);
-        for (int i = 0; i < total; i++) {
-            String random = UUID.randomUUID().toString();
-            tree.add(random);
-        }
+        initGoodTree();
         tree.inOrderTraverse();
     }
 
     @Test
     public void testPostOrderTraverse() {
-
+        initGoodTree();
+        tree.postOrderTraverse();
     }
 
     @Test
     public void testPreOrderNonRecursiveTraverse() {
-
+        initGoodTree();
+        tree.preOrderNonRecursiveTraverse();
     }
 
     @Test
     public void testInOrderNonRecursiveTraverse() {
-
+        initGoodTree();
+        tree.inOrderTraverse();
     }
 
     @Test
     public void testPostOrderNonRecursiveTraverse() {
-
+        initGoodTree();
+        tree.postOrderNonRecursiveTraverse();
     }
 
 }

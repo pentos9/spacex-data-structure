@@ -66,7 +66,7 @@ public class BinarySearchTree<T extends Comparable> {
         return current;
     }
 
-    public boolean conntains(T data) {
+    public boolean contains(T data) {
         return contains(this.root, data);
     }
 

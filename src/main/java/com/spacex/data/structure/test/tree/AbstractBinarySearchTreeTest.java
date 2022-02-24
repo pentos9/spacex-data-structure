@@ -24,6 +24,16 @@ public abstract class AbstractBinarySearchTreeTest {
     }
 
     @Test
+    public void testHeight() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        for (int i = 0; i < total; i++) {
+            tree.add(String.valueOf(i));
+        }
+
+        Assertions.assertTrue(tree.height() != 0);
+    }
+
+    @Test
     public void testNull() {
         Assertions.assertNotNull(tree);
         Assertions.assertTrue(tree.isEmpty());
@@ -67,10 +77,10 @@ public abstract class AbstractBinarySearchTreeTest {
         }
 
 
-        Assertions.assertFalse(tree.conntains(""));
+        Assertions.assertFalse(tree.contains(""));
         String random = UUID.randomUUID().toString();
         tree.add(random);
-        Assertions.assertTrue(tree.conntains(random));
+        Assertions.assertTrue(tree.contains(random));
     }
 
     private BinarySearchTree initGoodTree() {

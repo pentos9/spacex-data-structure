@@ -61,6 +61,14 @@ public class RedBlackTree<T extends Comparable<T>> {
         return null;
     }
 
+    private boolean isBlack(Node<T> node) {
+        return node == null || node.isBlack();
+    }
+
+    private boolean isRoot(Node<T> node) {
+        return root.getLeft() == node && node.getParent() == null;
+    }
+
     private class Node<T> {
         private T value;
         private boolean red;
@@ -86,6 +94,10 @@ public class RedBlackTree<T extends Comparable<T>> {
 
         public Node<T> getRight() {
             return this.right;
+        }
+
+        public Node<T> getParent() {
+            return this.parent;
         }
 
         public T getValue() {

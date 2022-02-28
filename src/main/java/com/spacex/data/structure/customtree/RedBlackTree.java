@@ -42,6 +42,25 @@ public class RedBlackTree<T extends Comparable<T>> {
         return null;
     }
 
+    public T find(T value) {
+        Node<T> dataRoot = getRoot();
+        while (dataRoot != null) {
+            int cmp = dataRoot.getValue().compareTo(value);
+            if (cmp > 0) {
+                dataRoot = dataRoot.getLeft();
+            } else if (cmp < 0) {
+                dataRoot = dataRoot.getRight();
+            } else {
+                return dataRoot.getValue();
+            }
+        }
+        return null;
+    }
+
+    public T remove(T value) {
+        return null;
+    }
+
     private class Node<T> {
         private T value;
         private boolean red;
@@ -59,6 +78,18 @@ public class RedBlackTree<T extends Comparable<T>> {
         public Node(T value, boolean isRed) {
             this.value = value;
             this.red = isRed;
+        }
+
+        public Node<T> getLeft() {
+            return this.left;
+        }
+
+        public Node<T> getRight() {
+            return this.right;
+        }
+
+        public T getValue() {
+            return this.value;
         }
 
         public boolean isRed() {

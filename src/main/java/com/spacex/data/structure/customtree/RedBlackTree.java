@@ -26,11 +26,11 @@ public class RedBlackTree<T extends Comparable<T>> {
     }
 
     public long size() {
-        return size.get();
+        return this.size.get();
     }
 
     private Node<T> getRoot() {
-        return root.left;
+        return this.root.getLeft();
     }
 
     public T addNode(T value) {
@@ -59,6 +59,19 @@ public class RedBlackTree<T extends Comparable<T>> {
 
     public T remove(T value) {
         return null;
+    }
+
+    private Node<T> getSibling(Node<T> node, Node<T> parent) {
+        parent = node == null ? parent : node.getParent();
+        if (node == null) {
+            return parent.getLeft() == null ? parent.getRight() : parent.getLeft();
+        }
+
+        if (node == parent.getLeft()) {
+            return parent.getRight();
+        } else {
+            return parent.getLeft();
+        }
     }
 
     private boolean isBlack(Node<T> node) {

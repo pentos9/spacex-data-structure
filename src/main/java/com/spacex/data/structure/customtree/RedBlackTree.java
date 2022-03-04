@@ -82,6 +82,33 @@ public class RedBlackTree<T extends Comparable<T>> {
         return root.getLeft() == node && node.getParent() == null;
     }
 
+    private Node<T> removeMin(Node<T> node) {
+        Node<T> parent = node;
+        while (node != null && node.getLeft() != null) {
+            parent = node;
+            node = node.getLeft();
+        }
+
+        if (parent == node) {
+            return node;
+        }
+
+        parent.setLeft(node.getRight());
+        setParent(node.getRight(), parent);
+        //don't remove right pointer,it is used for fixed color balance
+        //node.setRight(null);
+        return node;
+    }
+
+    private void setParent(Node<T> node, Node<T> parent) {
+        if (node != null) {
+            node.setParent(parent);
+            if (parent == this.root) {
+                node.setParent(null);
+            }
+        }
+    }
+
     private class Node<T> {
         private T value;
         private boolean red;
@@ -105,12 +132,24 @@ public class RedBlackTree<T extends Comparable<T>> {
             return this.left;
         }
 
+        public void setLeft(Node<T> node) {
+            this.left = node;
+        }
+
         public Node<T> getRight() {
             return this.right;
         }
 
+        public void setRight(Node<T> node) {
+            this.right = node;
+        }
+
         public Node<T> getParent() {
             return this.parent;
+        }
+
+        public void setParent(Node<T> parent) {
+            this.parent = parent;
         }
 
         public T getValue() {

@@ -61,6 +61,25 @@ public class RedBlackTree<T extends Comparable<T>> {
         return null;
     }
 
+    private Node<T> findParentNode(Node<T> x) {
+        Node<T> dataRoot = getRoot();
+        Node<T> child = dataRoot;
+        while (child != null) {
+            int cmp = child.getValue().compareTo(x.getValue());
+            if (cmp == 0) {
+                return child;
+            }
+            if (cmp > 0) {
+                dataRoot = child;
+                child = child.getLeft();
+            } else if (cmp < 0) {
+                dataRoot = child;
+                child = child.getRight();
+            }
+        }
+        return dataRoot;
+    }
+
     private Node<T> getSibling(Node<T> node, Node<T> parent) {
         parent = node == null ? parent : node.getParent();
         if (node == null) {
@@ -71,6 +90,19 @@ public class RedBlackTree<T extends Comparable<T>> {
             return parent.getRight();
         } else {
             return parent.getLeft();
+        }
+    }
+
+    private Node<T> getUncle(Node<T> node) {
+        Node<T> parent = node.getParent();
+        Node<T> ancestor = parent.getParent();
+        if (ancestor == null) {
+            return null;
+        }
+        if (parent == ancestor.getLeft()) {
+            return ancestor.getRight();
+        } else {
+            return ancestor.getLeft();
         }
     }
 

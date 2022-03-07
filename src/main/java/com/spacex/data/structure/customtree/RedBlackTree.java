@@ -80,6 +80,56 @@ public class RedBlackTree<T extends Comparable<T>> {
         return dataRoot;
     }
 
+    private void fixInsert(Node<T> node) {
+        Node<T> parent = node.getParent();
+        while (parent != null && parent.isRed()) {
+            Node<T> uncle = getUncle(node);
+            if (uncle == null) {// need to rotate
+                Node<T> ancestor = parent.getParent();
+
+                if (parent == ancestor.getLeft()) {
+                    boolean isRight = (node == parent.getRight());
+                    if (isRight) {
+                        rotateLeft(parent);
+                    }
+                    rotateRight(ancestor);
+
+                    if (isRight) {
+                        node.setRed(false);
+                        parent = null;
+                    } else {
+                        parent.setRed(false);
+                    }
+                    ancestor.setRed(true);
+                } else {
+                    boolean isLeft = (node == parent.getLeft());
+                    if (isLeft) {
+                        rotateRight(parent);
+                    }
+
+                    rotateLeft(ancestor);
+                    if (isLeft) {
+                        node.setRed(false);
+                        parent = null;
+                    } else {
+                        parent.setRed(false);
+                    }
+                    ancestor.setRed(true);
+                }
+
+            } else { // uncle is red
+                parent.setRed(false);
+                uncle.setRed(false);
+                parent.getParent().setRed(true);
+                node = parent.getParent();
+                parent = node.getParent();
+            }
+        }
+
+        getRoot().makeBlack();
+        getRoot().setParent(null);
+    }
+
     private Node<T> getSibling(Node<T> node, Node<T> parent) {
         parent = node == null ? parent : node.getParent();
         if (node == null) {
@@ -134,6 +184,10 @@ public class RedBlackTree<T extends Comparable<T>> {
         }
     }
 
+    private void rotateRight(Node<T> node) {
+
+    }
+
     private boolean isBlack(Node<T> node) {
         return node == null || node.isBlack();
     }
@@ -186,6 +240,10 @@ public class RedBlackTree<T extends Comparable<T>> {
         public Node(T value, boolean isRed) {
             this.value = value;
             this.red = isRed;
+        }
+
+        public void setRed(boolean red) {
+            this.red = red;
         }
 
         public Node<T> getLeft() {

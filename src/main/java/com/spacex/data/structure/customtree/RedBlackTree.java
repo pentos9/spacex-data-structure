@@ -106,6 +106,34 @@ public class RedBlackTree<T extends Comparable<T>> {
         }
     }
 
+    private void rotateLeft(Node<T> node) {
+        Node<T> right = node.getRight();
+        if (right == null) {
+            throw new java.lang.IllegalStateException("right node is null");
+        }
+
+        Node<T> parent = node.getParent();
+        node.setRight(node.getLeft());
+        setParent(right.getLeft(), node);
+
+
+        right.setLeft(node);
+        setParent(node, right);
+
+        if (parent == null) {//node pointer to root
+            //right  raise to root node
+            root.setLeft(right);
+            setParent(right, null);
+        } else {
+            if (parent.getLeft() == node) {
+                parent.setLeft(right);
+            } else {
+                parent.setRight(right);
+            }
+            setParent(right, parent);
+        }
+    }
+
     private boolean isBlack(Node<T> node) {
         return node == null || node.isBlack();
     }

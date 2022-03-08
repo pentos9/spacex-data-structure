@@ -39,6 +39,39 @@ public class RedBlackTree<T extends Comparable<T>> {
     }
 
     private T addNode(Node<T> node) {
+        node.setLeft(null);
+        node.setRight(null);
+        node.setRed(true);
+        setParent(node, null);
+
+        if (node.getLeft() == null) {
+            root.setLeft(node);
+            //root node is black
+            node.setRed(false);
+            size.incrementAndGet();
+        } else {
+            Node<T> x = findParentNode(node);
+            int cmp = x.getValue().compareTo(node.getValue());
+            if (this.overwriteMode && cmp == 0) {
+                T v = x.getValue();
+                x.setValue(node.getValue());
+                return v;
+            } else if (cmp == 0) {
+                // value exists,ignore this node
+                return x.getValue();
+            }
+
+            setParent(node, x);
+            if (cmp > 0) {
+                x.setLeft(node);
+            } else {
+                x.setRight(node);
+            }
+
+            fixInsert(node);
+            size.incrementAndGet();
+        }
+
         return null;
     }
 
@@ -268,6 +301,10 @@ public class RedBlackTree<T extends Comparable<T>> {
 
         public void setParent(Node<T> parent) {
             this.parent = parent;
+        }
+
+        public void setValue(T value) {
+            this.value = value;
         }
 
         public T getValue() {

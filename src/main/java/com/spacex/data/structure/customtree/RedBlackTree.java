@@ -94,6 +94,61 @@ public class RedBlackTree<T extends Comparable<T>> {
         return null;
     }
 
+    private void fixRemove(Node<T> node, boolean isParent) {
+        Node<T> current = isParent ? null : node;
+        boolean isRed = (isParent ? false : node.isRed());
+        Node<T> parent = isParent ? node : node.getParent();
+        while (!isRed && !isRoot(current)) {
+            Node<T> sibling = getSibling(current, parent);
+
+            //if cur is a left node
+            boolean isLeft = (node.getParent() == sibling);
+            if (sibling.isRed() && !isLeft) {//case 1
+                parent.makeRed();
+                sibling.makeBlack();
+                rotateRight(parent);
+            } else if (sibling.isRed() && isLeft) {
+                //cur in red
+                parent.makeRed();
+                sibling.makeBlack();
+                rotateLeft(parent);
+            } else if (isBlack(sibling.getLeft()) && isBlack(parent.getRight())) {// case 2
+                sibling.makeRed();
+                current = parent;
+                isRed = current.isRed();
+                parent = parent.getParent();
+            } else if (isLeft && !isBlack(sibling.getLeft()) && isBlack(sibling.getRight())) {//case 3
+                sibling.makeRed();
+                sibling.getLeft().makeBlack();
+                rotateRight(sibling);
+            } else if (!isLeft && !isBlack(sibling.getRight()) && isBlack(sibling.getLeft())) {
+                sibling.makeRed();
+                sibling.getRight().makeBlack();
+                rotateLeft(sibling);
+            } else if (isLeft && !isBlack(sibling.getRight())) {//case 4
+                sibling.setRed(parent.isRed());
+                parent.makeBlack();
+                sibling.getRight().makeBlack();
+                rotateLeft(parent);
+                current = getRoot();
+            } else if (!isLeft && !isBlack(sibling.getLeft())) {
+                sibling.setRed(parent.isRed());
+                parent.makeBlack();
+                sibling.getLeft().makeBlack();
+                rotateRight(parent);
+                current = getRoot();
+            }
+        }
+
+        if (isRed) {
+            current.makeBlack();
+        }
+        if (getRoot() != null) {
+            getRoot().setRed(false);
+            getRoot().setParent(null);
+        }
+    }
+
     private Node<T> findParentNode(Node<T> x) {
         Node<T> dataRoot = getRoot();
         Node<T> child = dataRoot;

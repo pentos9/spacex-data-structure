@@ -44,7 +44,7 @@ public class RedBlackTree<T extends Comparable<T>> {
         node.setRed(true);
         setParent(node, null);
 
-        if (node.getLeft() == null) {
+        if (root.getLeft() == null) {
             root.setLeft(node);
             //root node is black
             node.setRed(false);
@@ -91,6 +91,80 @@ public class RedBlackTree<T extends Comparable<T>> {
     }
 
     public T remove(T value) {
+        Node<T> dataRoot = getRoot();
+        Node<T> parent = root;
+        while (dataRoot != null) {
+            int cmp = dataRoot.getValue().compareTo(value);
+            if (cmp < 0) {
+                parent = dataRoot;
+                dataRoot = dataRoot.getRight();
+            } else if (cmp > 0) {
+                parent = dataRoot;
+                dataRoot = dataRoot.getLeft();
+            } else {
+                if (dataRoot.getRight() != null) {
+                    Node<T> min = removeMin(dataRoot.getRight());
+                    // x for color balance
+                    Node<T> x = (min.getRight() == null ? min.getParent() : min.getRight());
+                    boolean isParent = (min.getRight() == null);
+
+                    min.setLeft(dataRoot.getLeft());
+                    setParent(dataRoot.getLeft(), min);
+                    if (parent.getLeft() == dataRoot) {
+                        parent.setLeft(min);
+                    } else {
+                        parent.setRight(min);
+                    }
+                    setParent(min, parent);
+
+                    boolean currentMinIsBlack = min.isBlack();
+                    //inherit data root's color
+                    min.setRed(dataRoot.isRed());
+
+                    if (min != dataRoot.getRight()) {
+                        min.setRight(dataRoot.getRight());
+                        setParent(dataRoot.getRight(), min);
+                    }
+
+                    // remove a black node,need to fix color
+                    if (currentMinIsBlack) {
+                        if (min != dataRoot.getRight()) {
+                            fixRemove(x, isParent);
+                        } else if (min.getRight() != null) {
+                            fixRemove(min.getRight(), false);
+                        } else {
+                            fixRemove(min, true);
+                        }
+                    }
+                } else {
+                    setParent(dataRoot.getLeft(), parent);
+                    if (parent.getLeft() == dataRoot) {
+                        parent.setLeft(dataRoot.getLeft());
+                    } else {
+                        parent.setRight(dataRoot.getLeft());
+                    }
+
+                    // current node is black and tree is not empty
+                    if (dataRoot.isBlack() && !(dataRoot.getLeft() == null)) {
+                        Node<T> x = (dataRoot.getLeft() == null ?
+                                parent : dataRoot.getLeft());
+                        boolean isParent = dataRoot.getLeft() == null;
+                        fixRemove(x, isParent);
+                    }
+                }
+
+                setParent(dataRoot, null);
+                dataRoot.setLeft(null);
+                dataRoot.setRight(null);
+                if (getRoot() != null) {
+                    getRoot().setRed(false);
+                    getRoot().setParent(null);
+                }
+
+                size.decrementAndGet();
+                return dataRoot.getValue();
+            }
+        }
         return null;
     }
 
@@ -101,7 +175,7 @@ public class RedBlackTree<T extends Comparable<T>> {
         while (!isRed && !isRoot(current)) {
             Node<T> sibling = getSibling(current, parent);
 
-            //if cur is a left node
+            //if current is a left node
             boolean isLeft = (node.getParent() == sibling);
             if (sibling.isRed() && !isLeft) {//case 1
                 parent.makeRed();

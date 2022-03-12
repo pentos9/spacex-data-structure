@@ -29,6 +29,17 @@ public class RedBlackTree<T extends Comparable<T>> {
         return this.size.get();
     }
 
+    public int height() {
+        return this.height(this.root);
+    }
+
+    private int height(Node<T> node) {
+        if (node == null) {
+            return -1;
+        }
+        return 1 + height(node.getLeft()) + height(node.getRight());
+    }
+
     private Node<T> getRoot() {
         return this.root.getLeft();
     }

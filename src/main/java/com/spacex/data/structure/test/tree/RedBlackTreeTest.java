@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -54,6 +56,19 @@ public class RedBlackTreeTest {
 
     @Test
     public void testFind() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        List<String> uuidList = new ArrayList<>();
+        for (int i = 0; i < total; i++) {
+            String uuid = UUID.randomUUID().toString();
+            uuidList.add(uuid);
+            redBlackTree.addNode(uuid);
+        }
+
+        for (int i = 0; i < total; i++) {
+            int index = ThreadLocalRandom.current().nextInt(total);
+            String random = uuidList.get(index);
+            Assertions.assertEquals(random, redBlackTree.find(random));
+        }
 
     }
 
@@ -76,6 +91,12 @@ public class RedBlackTreeTest {
 
     @Test
     public void testPrint() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        for (int i = 0; i < total; i++) {
+            redBlackTree.addNode(String.valueOf(i));
+        }
 
+        System.out.println(redBlackTree.size());
+        redBlackTree.printTree();
     }
 }

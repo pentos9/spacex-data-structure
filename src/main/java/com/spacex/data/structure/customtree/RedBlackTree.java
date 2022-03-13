@@ -1,5 +1,6 @@
 package com.spacex.data.structure.customtree;
 
+import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class RedBlackTree<T extends Comparable<T>> {
@@ -358,7 +359,29 @@ public class RedBlackTree<T extends Comparable<T>> {
     }
 
     private void rotateRight(Node<T> node) {
+        Node<T> left = node.getLeft();
+        if (left == null) {
+            throw new java.lang.IllegalStateException("left node is null");
+        }
 
+        Node<T> parent = node.getParent();
+        node.setLeft(left.getRight());
+        setParent(left.getRight(), node);
+
+        left.setRight(node);
+        setParent(node, left);
+
+        if (parent == null) {
+            root.setLeft(left);
+            setParent(left, null);
+        } else {
+            if (parent.getLeft() == node) {
+                parent.setLeft(left);
+            } else {
+                parent.setRight(left);
+            }
+            setParent(left, parent);
+        }
     }
 
     private boolean isBlack(Node<T> node) {
@@ -392,6 +415,42 @@ public class RedBlackTree<T extends Comparable<T>> {
             node.setParent(parent);
             if (parent == this.root) {
                 node.setParent(null);
+            }
+        }
+    }
+
+    public void printTree() {
+        this.printTree(this.root);
+    }
+
+    private void printTree(Node root) {
+        LinkedList<Node> queue = new LinkedList<>();
+        LinkedList<Node> queue2 = new LinkedList<>();
+        if (root == null) {
+            return;
+        }
+
+        queue.add(root);
+        boolean firstQueue = true;
+
+        while (!queue.isEmpty() || !queue2.isEmpty()) {
+            LinkedList<Node> q = firstQueue ? queue : queue2;
+            Node<T> n = q.poll();
+            if (n != null) {
+                String pos = (n.getParent() == null ? "" : (n == n.getParent().getLeft() ? " LE" : " RI"));
+                String parentStr = (n.getParent() == null ? "" : n.getParent().toString());
+                String colorStr = n.isRed() ? "R" : "B";
+                colorStr = (n.getParent() == null ? colorStr : colorStr + " ");
+                System.out.print(n + "(" + (colorStr) + parentStr + (pos) + ")" + "\t");
+                if (n.getLeft() != null) {
+                    (firstQueue ? queue2 : queue).add(n.getLeft());
+                }
+                if (n.getRight() != null) {
+                    (firstQueue ? queue2 : queue).add(n.getRight());
+                }
+            } else {
+                System.out.println();
+                firstQueue = !firstQueue;
             }
         }
     }
@@ -469,6 +528,11 @@ public class RedBlackTree<T extends Comparable<T>> {
 
         public void makeBlack() {
             this.red = false;
+        }
+
+        @Override
+        public String toString() {
+            return this.value == null ? "null" : this.value.toString();
         }
     }
 }

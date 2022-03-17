@@ -76,17 +76,27 @@ public class RedBlackTreeTest {
     public void testRemove() {
         int total = ThreadLocalRandom.current().nextInt(100);
         String random = UUID.randomUUID().toString();
+        List<String> uuidList = new ArrayList<>();
         for (int i = 0; i < total; i++) {
             if (i == 0) {
                 redBlackTree.addNode(random);
             }
             String uuid = UUID.randomUUID().toString();
+            uuidList.add(uuid);
             redBlackTree.addNode(uuid);
         }
 
         Assertions.assertTrue(redBlackTree.find(random) != null);
-        redBlackTree.remove(random);
-        Assertions.assertTrue(redBlackTree.find(random) == null);
+//        redBlackTree.remove(random);
+//        Assertions.assertTrue(redBlackTree.find(random) == null);
+
+        for (int i = 0; i < total; i++) {
+            int index = ThreadLocalRandom.current().nextInt(uuidList.size());
+            String randomUUID = uuidList.get(index);
+            Assertions.assertEquals(randomUUID, redBlackTree.remove(randomUUID));
+            uuidList.remove(randomUUID);
+        }
+
     }
 
     @Test

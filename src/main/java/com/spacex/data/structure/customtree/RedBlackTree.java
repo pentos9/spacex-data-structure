@@ -187,6 +187,10 @@ public class RedBlackTree<T extends Comparable<T>> {
         while (!isRed && !isRoot(current)) {
             Node<T> sibling = getSibling(current, parent);
 
+            if (sibling == null) {
+                return;
+            }
+
             //if current is a left node
             boolean isLeft = (node.getRight() == sibling);
             if (sibling.isRed() && !isLeft) {//case 1

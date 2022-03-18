@@ -93,7 +93,8 @@ public class RedBlackTreeTest {
         for (int i = 0; i < total; i++) {
             int index = ThreadLocalRandom.current().nextInt(uuidList.size());
             String randomUUID = uuidList.get(index);
-            Assertions.assertEquals(randomUUID, redBlackTree.remove(randomUUID));
+            redBlackTree.remove(randomUUID);
+            Assertions.assertNull(redBlackTree.find(randomUUID));
             uuidList.remove(randomUUID);
         }
 

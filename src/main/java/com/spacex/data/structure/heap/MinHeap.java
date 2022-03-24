@@ -9,8 +9,11 @@ public class MinHeap<T extends Comparable<T>> {
     private int size;
 
     public MinHeap() {
-        this.size = INITIAL_SIZE;
-        this.heap = (T[]) new Object[INITIAL_SIZE];
+    }
+
+    public MinHeap(Class<T> type) {
+        this.heap = (T[]) Array.newInstance(type, INITIAL_SIZE);
+        this.type = type;
     }
 
     public int size() {
@@ -26,7 +29,15 @@ public class MinHeap<T extends Comparable<T>> {
     }
 
     public int getParent(int index) {
-        return (index - 1) / 2;
+        return (index + 1) / 2 - 1;
+    }
+
+    public int getLeftChild(int index) {
+        return (index + 1) * 2 - 1;
+    }
+
+    public int getRightChild(int index) {
+        return (index + 1) * 2;
     }
 
     public void insert(T value) {
@@ -44,7 +55,7 @@ public class MinHeap<T extends Comparable<T>> {
                 swap(index, parentIndex);
             }
 
-            buildHeap(index);
+            buildHeap(parentIndex);
         }
     }
 

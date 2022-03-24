@@ -66,6 +66,24 @@ public class MinHeap<T extends Comparable<T>> {
     }
 
     public void clear() {
+        this.heap = (T[]) Array.newInstance(type, INITIAL_SIZE);
+        this.size = 0;
+    }
 
+    public T min() {
+        return this.heap[0];
+    }
+
+    public int getElement(T item) {
+        for (int i = 0; i < this.heap.length; i++) {
+            if (this.heap[i].equals(item)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public T getParentElement(T t) {
+        return null;
     }
 }

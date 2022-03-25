@@ -86,4 +86,18 @@ public class MinHeap<T extends Comparable<T>> {
     public T getParentElement(T t) {
         return null;
     }
+
+    public T getLeftChildElement(T t) {
+        return null;
+    }
+
+    public T getRightChildElement(T t) {
+        return null;
+    }
+
+    public void getPreOrder() {
+        for (int i = 0; i < this.size; i++) {
+            System.out.println(this.heap[i]);
+        }
+    }
 }

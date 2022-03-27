@@ -75,7 +75,7 @@ public class MinHeap<T extends Comparable<T>> {
     }
 
     public int getElement(T item) {
-        for (int i = 0; i < this.heap.length; i++) {
+        for (int i = 0; i < this.size; i++) {
             if (this.heap[i].equals(item)) {
                 return i;
             }
@@ -83,19 +83,52 @@ public class MinHeap<T extends Comparable<T>> {
         return 0;
     }
 
+    private boolean contains(T t) {
+        for (int i = 0; i < this.size; i++) {
+            if (this.heap[i].equals(t)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public T getParentElement(T t) {
-        return null;
+        boolean exist = contains(t);
+        int index = getElement(t);
+        if (!exist) {
+            return null;
+        } else if (index == 0) {
+            return this.heap[0];
+        } else {
+            return this.heap[index];
+        }
     }
 
     public T getLeftChildElement(T t) {
-        return null;
+        boolean exist = contains(t);
+        int index = getElement(t);
+        if (!exist) {
+            return null;
+        } else if (getLeftChild(index) >= this.size) {
+            return null;
+        } else {
+            return this.heap[getLeftChild(index)];
+        }
     }
 
     public T getRightChildElement(T t) {
-        return null;
+        boolean exist = contains(t);
+        int index = getElement(t);
+        if (!exist) {
+            return null;
+        } else if (getRightChild(index) > this.size) {
+            return null;
+        } else {
+            return this.heap[getRightChild(index)];
+        }
     }
 
-    public void getPreOrder() {
+    public void printPreOrder() {
         for (int i = 0; i < this.size; i++) {
             System.out.println(this.heap[i]);
         }

@@ -3,6 +3,8 @@ package com.spacex.data.structure.test.heap;
 import com.spacex.data.structure.heap.MinHeap;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class MinHeapTest {
 
     @Test
@@ -11,6 +13,19 @@ public class MinHeapTest {
         for (int i = 0; i < 10; i++) {
             heap.insert(i);
         }
+
+        heap.printPreOrder();
+
+        heap.clear();
+
+        System.out.println("=======");
+        for (int i = 0; i < 10; i++) {
+            heap.insert(ThreadLocalRandom.current().nextInt(100));
+        }
+
+        heap.printPreOrder();
+
+        System.out.println(heap.min());
     }
 
     @Test

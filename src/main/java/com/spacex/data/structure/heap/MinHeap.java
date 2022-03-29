@@ -20,6 +20,10 @@ public class MinHeap<T extends Comparable<T>> {
         return this.size;
     }
 
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
     public void checkSize() {
         if (this.size > this.heap.length / 2) {
             T[] newHeap = (T[]) Array.newInstance(type, INITIAL_SIZE * 2);
@@ -126,6 +130,24 @@ public class MinHeap<T extends Comparable<T>> {
         } else {
             return this.heap[getRightChild(index)];
         }
+    }
+
+    public boolean remove(T element) {
+        int index = indexOf(element);
+        if (index == -1) {
+            return false;
+        }
+
+        removeInternal(index);
+        return true;
+    }
+
+    private int indexOf(T element) {
+        return 0;
+    }
+
+    private void removeInternal(int index) {
+
     }
 
     public void printPreOrder() {

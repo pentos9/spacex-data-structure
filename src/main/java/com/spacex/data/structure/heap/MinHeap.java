@@ -181,7 +181,7 @@ public class MinHeap<T extends Comparable<T>> {
                 start++;
             }
 
-            if (start == node) {
+            if (count == node) {
                 return -1;
             } else {
                 node = node * 2;

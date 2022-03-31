@@ -143,16 +143,80 @@ public class MinHeap<T extends Comparable<T>> {
     }
 
     private int indexOf(T element) {
-        return 0;
+        if (element == null) {
+            return -1;
+        }
+
+        for (int i = 0; i < this.size; i++) {
+            if (element.equals(this.heap[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int indexOf2(T element) {
+        int start = 0;
+        int node = 1;
+        while (start < this.size) {
+            start = node - 1;
+            int end = start + node;
+            int count = 0;
+
+            while (start < this.size && start < end) {
+                if (start == 0) {
+                    if (element.compareTo(this.heap[start]) == 0) {
+                        return start;
+                    } else if (element.compareTo(this.heap[start]) < 0) {
+                        return -1;
+                    }
+                } else {
+                    if (element.compareTo(this.heap[start]) == 0) {
+                        return start;
+                    } else if (element.compareTo(this.heap[start]) < 0
+                            && element.compareTo(this.heap[getParent(start)]) > 0) {
+                        count++;
+                    }
+                }
+                start++;
+            }
+
+            if (start == node) {
+                return -1;
+            } else {
+                node = node * 2;
+            }
+        }
+        return -1;
     }
 
     private void removeInternal(int index) {
+        //
+        this.heap[index] = this.heap[--index];
+        int left = 2 * index + 1;
+        int right = 2 * index + 2;
 
+        while (left < this.size && (
+                this.heap[index].compareTo(this.heap[left]) > 0 ||
+                        this.heap[index].compareTo(this.heap[left]) < 0)) {
+
+            if (this.heap[left].compareTo(this.heap[right]) < 0) {
+                swap(index, left);
+                index = left;
+            } else {
+                swap(index, right);
+                index = right;
+            }
+
+            left = 2 * index + 1;
+            right = 2 * index + 2;
+        }
     }
 
     public void printPreOrder() {
         for (int i = 0; i < this.size; i++) {
             System.out.println(this.heap[i]);
         }
+
     }
 }

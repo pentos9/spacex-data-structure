@@ -1,11 +1,19 @@
 package com.spacex.data.structure.test.heap;
 
 import com.spacex.data.structure.heap.MinHeap;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MinHeapTest {
+
+    private MinHeap<Integer> heap;
+
+    @BeforeEach
+    public void init() {
+        this.heap = new MinHeap<>(Integer.class);
+    }
 
     @Test
     public void test() {
@@ -31,5 +39,35 @@ public class MinHeapTest {
     @Test
     public void test2() {
         System.out.println((0 - 1) / 2);
+    }
+
+    @Test
+    public void testSize() {
+
+    }
+
+    @Test
+    public void testEmpty() {
+
+    }
+
+    @Test
+    public void testInsert() {
+
+    }
+
+    @Test
+    public void testGetParent() {
+
+    }
+
+    @Test
+    public void testRemove() {
+
+    }
+
+    @Test
+    public void testIndexOf() {
+
     }
 }

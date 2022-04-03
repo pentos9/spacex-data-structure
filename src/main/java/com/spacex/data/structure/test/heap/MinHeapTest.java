@@ -1,6 +1,7 @@
 package com.spacex.data.structure.test.heap;
 
 import com.spacex.data.structure.heap.MinHeap;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,18 +38,36 @@ public class MinHeapTest {
     }
 
     @Test
-    public void test2() {
+    public void testSample() {
         System.out.println((0 - 1) / 2);
     }
 
     @Test
     public void testSize() {
+        Assertions.assertNotNull(heap);
+        Assertions.assertTrue(heap.isEmpty());
+        Assertions.assertTrue(heap.size() == 0);
 
+        int total = ThreadLocalRandom.current().nextInt(100);
+        for (int i = 0; i < total; i++) {
+            heap.insert(i);
+        }
+
+        Assertions.assertTrue(heap.size() == total);
     }
 
     @Test
     public void testEmpty() {
+        Assertions.assertTrue(heap.isEmpty());
+        int total = ThreadLocalRandom.current().nextInt(100);
+        for (int i = 0; i < total; i++) {
+            heap.insert(i);
+        }
 
+        Assertions.assertFalse(heap.isEmpty());
+
+        heap.clear();
+        Assertions.assertTrue(heap.isEmpty());
     }
 
     @Test

@@ -72,12 +72,35 @@ public class MinHeapTest {
 
     @Test
     public void testInsert() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        heap.clear();
+        for (int i = 0; i < total; i++) {
+            heap.insert(i);
+        }
 
+        Assertions.assertFalse(heap.isEmpty());
+        Assertions.assertTrue(heap.size() == total);
     }
 
     @Test
     public void testGetParent() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        heap.clear();
+        for (int i = 0; i < total; i++) {
+            heap.insert(i);
+        }
 
+        for (int i = 0; i < heap.size(); i++) {
+            heap.getParent(i);
+        }
+
+        for (int i = 0; i < heap.size(); i++) {
+            heap.getParentElement(i);
+        }
+
+        for (int i = 0; i < heap.size(); i++) {
+            heap.getElement(i);
+        }
     }
 
     @Test

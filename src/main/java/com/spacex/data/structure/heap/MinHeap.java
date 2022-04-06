@@ -26,7 +26,7 @@ public class MinHeap<T extends Comparable<T>> {
 
     public void checkSize() {
         if (this.size > this.heap.length / 2) {
-            T[] newHeap = (T[]) Array.newInstance(type, INITIAL_SIZE * 2);
+            T[] newHeap = (T[]) Array.newInstance(type, this.size * 2);
             System.arraycopy(this.heap, 0, newHeap, 0, this.heap.length);
             this.heap = newHeap;
         }
@@ -192,7 +192,7 @@ public class MinHeap<T extends Comparable<T>> {
 
     private void removeInternal(int index) {
         //
-        this.heap[index] = this.heap[--index];
+        this.heap[index] = this.heap[--this.size];
         int left = 2 * index + 1;
         int right = 2 * index + 2;
 

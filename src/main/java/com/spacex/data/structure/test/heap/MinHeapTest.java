@@ -101,15 +101,39 @@ public class MinHeapTest {
         for (int i = 0; i < heap.size(); i++) {
             heap.getElement(i);
         }
+
+        for (int i = 0; i < heap.size(); i++) {
+            heap.getElement(i);
+            heap.getLeftChild(i);
+            heap.getRightChild(i);
+        }
     }
 
     @Test
     public void testRemove() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        heap.clear();
+        for (int i = 0; i < total; i++) {
+            int random = ThreadLocalRandom.current().nextInt(100);
+            heap.insert(random);
+        }
 
+        for (int i = 0; i < heap.size(); i++) {
+            heap.remove(heap.min());
+        }
+
+        //Assertions.assertTrue(heap.isEmpty());
     }
 
     @Test
     public void testIndexOf() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        for (int i = 0; i < total; i++) {
+            heap.insert(i);
+        }
 
+        for (int i = 0; i < total; i++) {
+            Assertions.assertFalse(heap.isEmpty());
+        }
     }
 }

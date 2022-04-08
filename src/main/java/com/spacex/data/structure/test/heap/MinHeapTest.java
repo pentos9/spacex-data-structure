@@ -136,4 +136,20 @@ public class MinHeapTest {
             Assertions.assertFalse(heap.isEmpty());
         }
     }
+
+    @Test
+    public void testClear() {
+        Assertions.assertTrue(heap.isEmpty());
+        int total = ThreadLocalRandom.current().nextInt(100);
+        for (int i = 0; i < total; i++) {
+            heap.insert(i);
+        }
+
+        Assertions.assertFalse(heap.isEmpty());
+
+        heap.clear();
+        Assertions.assertTrue(heap.size() == 0);
+        Assertions.assertTrue(heap.isEmpty());
+
+    }
 }

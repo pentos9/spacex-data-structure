@@ -23,7 +23,26 @@ public class BeautifulHeap<T extends Comparable> {
     }
 
     private void adjustHeap(int root) {
+        T parentValue = this.elements[root];
 
+        int parentIndex = root;
+        while (parentIndex * 2 <= this.size) {
+            int childIndex = parentIndex * 2;
+            if (childIndex != this.size && this.elements[childIndex].
+                    compareTo(this.elements[childIndex + 1]) < 0) {
+                childIndex++;
+            }
+
+            if (parentValue.compareTo(this.elements[childIndex]) > 0) {
+                break;
+            } else {
+                this.elements[parentIndex] = this.elements[childIndex];
+            }
+
+            parentIndex = childIndex;
+        }
+
+        this.elements[parentIndex] = parentValue;
     }
 
     public void insert(T data) {

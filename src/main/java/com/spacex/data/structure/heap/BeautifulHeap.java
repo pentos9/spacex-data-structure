@@ -65,7 +65,32 @@ public class BeautifulHeap<T extends Comparable> {
         this.elements[nextIndex] = data;
     }
 
-    public void deleteMaxElement() {
+    public T deleteMaxElement() {
+        if (isEmpty()) {
+            throw new RuntimeException("heap is empty,cannot handle delete operation!");
+        }
 
+        T maxItem = this.elements[1];
+        T lastItem = this.elements[this.size];
+
+        int insertIndex = 1;
+
+        while (insertIndex * 2 <= this.size) {
+            int childIndex = insertIndex * 2;
+            if (childIndex != this.size && this.elements[childIndex].compareTo(this.elements[childIndex + 1]) < 0) {
+                childIndex++;
+            }
+
+            if (lastItem.compareTo(this.elements[childIndex]) > 0) {
+                break;
+            } else {
+                this.elements[insertIndex] = this.elements[childIndex];
+            }
+
+            insertIndex = childIndex;
+        }
+
+        this.elements[insertIndex] = lastItem;
+        return maxItem;
     }
 }

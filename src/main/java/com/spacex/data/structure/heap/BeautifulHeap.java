@@ -103,4 +103,12 @@ public class BeautifulHeap<T extends Comparable> {
         this.elements[insertIndex] = lastItem;
         return maxItem;
     }
+
+    public void printHeap() {
+        for (int i = 1; i < this.size; i++) {
+            System.out.println(this.elements[i]);
+        }
+
+        System.out.println();
+    }
 }

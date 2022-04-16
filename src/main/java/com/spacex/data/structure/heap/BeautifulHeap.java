@@ -22,6 +22,16 @@ public class BeautifulHeap<T extends Comparable> {
         return this.size() == 0;
     }
 
+    private void buildHeap() {
+        if (isEmpty()) {
+            throw new RuntimeException("Heap is empty,cannot handle buildHeap operation!");
+        }
+
+        for (int i = this.size / 2; i > 0; --i) {
+            adjustHeap(i);
+        }
+    }
+
     private void adjustHeap(int root) {
         T parentValue = this.elements[root];
 

@@ -20,4 +20,16 @@ public class SimpleHeap {
     private int getRightChild(int index) {
         return 2 * index + 2;
     }
+
+    public boolean isFull() {
+        return this.size == this.heap.length;
+    }
+
+    public void insert(int value) {
+
+    }
+
+    private void shiftUp(int index) {
+
+    }
 }

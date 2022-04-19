@@ -1,5 +1,7 @@
 package com.spacex.data.structure.heap;
 
+import java.util.NoSuchElementException;
+
 public class SimpleHeap {
     private int[] heap;
     private int size;
@@ -19,6 +21,10 @@ public class SimpleHeap {
 
     private int getRightChild(int index) {
         return 2 * index + 2;
+    }
+
+    public boolean isEmpty() {
+        return this.size == 0;
     }
 
     public boolean isFull() {
@@ -44,5 +50,25 @@ public class SimpleHeap {
         }
 
         this.heap[index] = newValue;
+    }
+
+    /**
+     * This will delete element at index x
+     * Complexity: O(log N)
+     */
+    public int delete(int index) {
+        if (isEmpty()) {
+            throw new NoSuchElementException("heap is empty,no space tp insert new element");
+        }
+
+        int key = this.heap[index];
+        this.heap[index] = this.heap[this.size - 1];
+        this.size--;
+        shiftDown(index);
+        return key;
+    }
+
+    private void shiftDown(int index) {
+
     }
 }

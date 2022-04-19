@@ -26,10 +26,23 @@ public class SimpleHeap {
     }
 
     public void insert(int value) {
+        if (isFull()) {
+            throw new IndexOutOfBoundsException("heap is full");
+        }
 
+        this.heap[this.size] = value;
+        shiftUp(this.size);
+        this.size++;
     }
 
     private void shiftUp(int index) {
+        int newValue = this.heap[index];
 
+        while (index > 0 && newValue > this.heap[getParent(index)]) {
+            this.heap[index] = this.heap[getParent(index)];
+            index = getParent(index);
+        }
+
+        this.heap[index] = newValue;
     }
 }

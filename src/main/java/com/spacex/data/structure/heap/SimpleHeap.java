@@ -3,6 +3,8 @@ package com.spacex.data.structure.heap;
 import java.util.NoSuchElementException;
 
 public class SimpleHeap {
+
+    private static final int d = 2;//
     private int[] heap;
     private int size;
 
@@ -21,6 +23,15 @@ public class SimpleHeap {
 
     private int getRightChild(int index) {
         return 2 * index + 2;
+    }
+
+    /**
+     * @param index
+     * @param k
+     * @return
+     */
+    private int kthChild(int index, int k) {
+        return d * index + k;
     }
 
     public boolean isEmpty() {
@@ -68,7 +79,25 @@ public class SimpleHeap {
         return key;
     }
 
-    private void shiftDown(int index) {
 
+    private void shiftDown(int index) {
+        int child;
+        int temp = this.heap[index];
+        while (kthChild(index, 1) < this.size) {
+            child = maxChild(index);
+            if (temp < this.heap[child]) {
+                this.heap[index] = this.heap[child];
+            } else {
+                index = child;
+            }
+
+            this.heap[index] = temp;
+        }
+    }
+
+    private int maxChild(int index) {
+        int leftChild = kthChild(index, 1);
+        int rightChild = kthChild(index, 2);
+        return this.heap[leftChild] > this.heap[rightChild] ? leftChild : rightChild;
     }
 }

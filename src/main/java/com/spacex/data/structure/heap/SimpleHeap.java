@@ -100,4 +100,11 @@ public class SimpleHeap {
         int rightChild = kthChild(index, 2);
         return this.heap[leftChild] > this.heap[rightChild] ? leftChild : rightChild;
     }
+
+    public int findMax() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("heap is empty");
+        }
+        return this.heap[0];
+    }
 }

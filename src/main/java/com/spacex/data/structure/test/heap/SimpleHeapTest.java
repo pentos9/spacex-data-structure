@@ -1,0 +1,29 @@
+package com.spacex.data.structure.test.heap;
+
+import com.spacex.data.structure.heap.SimpleHeap;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.ThreadLocalRandom;
+
+public class SimpleHeapTest {
+
+    private static final int CAPACITY = 128;
+    private SimpleHeap simpleHeap;
+
+    @BeforeEach
+    public void init() {
+        simpleHeap = new SimpleHeap(CAPACITY);
+    }
+
+    @Test
+    public void testSize() {
+        int total = ThreadLocalRandom.current().nextInt(CAPACITY);
+        for (int i = 0; i < total; i++) {
+            simpleHeap.insert(i);
+        }
+
+        Assertions.assertTrue(simpleHeap.size() == total);
+    }
+}

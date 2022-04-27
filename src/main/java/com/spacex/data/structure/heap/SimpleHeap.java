@@ -107,4 +107,12 @@ public class SimpleHeap {
         }
         return this.heap[0];
     }
+
+    public void printHeap() {
+        for (int i = 0; i < this.size; i++) {
+            System.out.print(this.heap[i] + " ");
+        }
+        System.out.println();
+    }
+
 }

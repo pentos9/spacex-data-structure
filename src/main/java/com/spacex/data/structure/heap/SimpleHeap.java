@@ -34,6 +34,10 @@ public class SimpleHeap {
         return d * index + k;
     }
 
+    public int size() {
+        return this.size;
+    }
+
     public boolean isEmpty() {
         return this.size == 0;
     }

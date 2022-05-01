@@ -34,6 +34,13 @@ public class SimpleHeap {
         return d * index + k;
     }
 
+    public boolean isLeaf(int index) {
+        if (index >= this.size / 2 && index <= this.size) {
+            return true;
+        }
+        return false;
+    }
+
     public int size() {
         return this.size;
     }

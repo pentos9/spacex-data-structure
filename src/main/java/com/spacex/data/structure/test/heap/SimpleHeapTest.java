@@ -26,4 +26,24 @@ public class SimpleHeapTest {
 
         Assertions.assertTrue(simpleHeap.size() == total);
     }
+
+    @Test
+    public void testFindMax() {
+        int total = ThreadLocalRandom.current().nextInt(CAPACITY);
+        for (int i = 0; i < total; i++) {
+            simpleHeap.insert(i);
+        }
+
+        Assertions.assertNotNull(simpleHeap.findMax());
+    }
+
+    @Test
+    public void testIsLeaf() {
+        int total = ThreadLocalRandom.current().nextInt(CAPACITY);
+        for (int i = 0; i < total; i++) {
+            simpleHeap.insert(i);
+        }
+        Assertions.assertNotNull(simpleHeap.size() == total);
+        Assertions.assertFalse(simpleHeap.isLeaf(0));
+    }
 }

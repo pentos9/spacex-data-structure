@@ -46,4 +46,30 @@ public class SimpleHeapTest {
         Assertions.assertNotNull(simpleHeap.size() == total);
         Assertions.assertFalse(simpleHeap.isLeaf(0));
     }
+
+
+    @Test
+    public void testEmptyAndFull() {
+        int total = ThreadLocalRandom.current().nextInt(CAPACITY);
+        for (int i = 0; i < total; i++) {
+            simpleHeap.insert(i);
+        }
+        Assertions.assertFalse(simpleHeap.isEmpty());
+        Assertions.assertFalse(simpleHeap.isFull());
+    }
+
+    @Test
+    public void testEmpty() {
+        int total = ThreadLocalRandom.current().nextInt(CAPACITY);
+        for (int i = 0; i < total; i++) {
+            simpleHeap.insert(i);
+        }
+
+        Assertions.assertFalse(simpleHeap.isEmpty());
+
+        for (int i = 0; i < this.simpleHeap.size(); i++) {
+            simpleHeap.delete(i);
+        }
+        Assertions.assertTrue(simpleHeap.isEmpty());
+    }
 }

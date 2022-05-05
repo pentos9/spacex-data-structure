@@ -72,4 +72,22 @@ public class SimpleHeapTest {
         }
         Assertions.assertTrue(simpleHeap.isEmpty());
     }
+
+    @Test
+    public void testPrintHeap() {
+        int total = ThreadLocalRandom.current().nextInt(CAPACITY);
+        for (int i = 0; i < total; i++) {
+            simpleHeap.insert(i);
+        }
+        simpleHeap.printHeap();
+    }
+
+    @Test
+    public void testSimpleInsert() {
+        int total = ThreadLocalRandom.current().nextInt(CAPACITY);
+        for (int i = 0; i < total; i++) {
+            simpleHeap.insert(i);
+        }
+        Assertions.assertTrue(simpleHeap.size() == total);
+    }
 }

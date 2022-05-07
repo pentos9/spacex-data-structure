@@ -77,9 +77,9 @@ public class SimpleHeapTest {
     public void testPrintHeap() {
         int total = ThreadLocalRandom.current().nextInt(CAPACITY);
         for (int i = 0; i < total; i++) {
-            simpleHeap.insert(i);
+            simpleHeap.isLeaf(i);
+            System.out.println("[" + i + "] isLeaf:" + simpleHeap.isLeaf(i));
         }
-        simpleHeap.printHeap();
     }
 
     @Test
@@ -89,5 +89,15 @@ public class SimpleHeapTest {
             simpleHeap.insert(i);
         }
         Assertions.assertTrue(simpleHeap.size() == total);
+    }
+
+    @Test
+    public void testRandomLeaf() {
+        int total = ThreadLocalRandom.current().nextInt(CAPACITY);
+        for (int i = 0; i < total; i++) {
+            simpleHeap.insert(i);
+        }
+
+        simpleHeap.printHeap();
     }
 }

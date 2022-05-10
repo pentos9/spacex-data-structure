@@ -99,11 +99,12 @@ public class SimpleHeap {
             if (temp < this.heap[child]) {
                 this.heap[index] = this.heap[child];
             } else {
-                index = child;
+                break;
             }
-
-            this.heap[index] = temp;
+            index = child;
         }
+
+        this.heap[index] = temp;
     }
 
     private int maxChild(int index) {

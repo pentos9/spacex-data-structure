@@ -100,4 +100,24 @@ public class SimpleHeapTest {
 
         simpleHeap.printHeap();
     }
+
+    @Test
+    public void testGlobal() {
+        int total = ThreadLocalRandom.current().nextInt(CAPACITY);
+        for (int i = 0; i < total; i++) {
+            simpleHeap.insert(i);
+        }
+
+        simpleHeap.size();
+        simpleHeap.isFull();
+
+        for (int i = 0; i < total; i++) {
+            simpleHeap.delete(0);
+        }
+
+        if (!simpleHeap.isEmpty()) {
+            simpleHeap.findMax();
+        }
+        simpleHeap.printHeap();
+    }
 }

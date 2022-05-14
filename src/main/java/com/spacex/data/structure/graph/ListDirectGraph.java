@@ -41,9 +41,22 @@ public class ListDirectGraph<V> implements IDirectGraph<V> {
         return this.graphNodeList.get(index).getVertex();
     }
 
+    /**
+     * 如果新增一条边，就遍历整个列表。
+     * 如果存在这条起始节点，则新增这条边；
+     * 如果不存在，则可以报错。
+     *
+     * @param edge
+     */
     @Override
     public void addEdge(Edge<V> edge) {
-
+        for (GraphNode<V> graphNode : this.graphNodeList) {
+            V from = edge.getFrom();
+            V vertex = graphNode.getVertex();
+            if (from.equals(vertex)) {
+                graphNode.getEdgeSet().add(edge);
+            }
+        }
     }
 
     @Override

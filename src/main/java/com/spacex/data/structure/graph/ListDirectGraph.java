@@ -61,11 +61,33 @@ public class ListDirectGraph<V> implements IDirectGraph<V> {
 
     @Override
     public boolean removeEdge(Edge<V> edge) {
-        return false;
+        GraphNode<V> graphNode = getGraphNode(edge);
+        if (graphNode != null) {
+            graphNode.remove(edge.getTo());
+        }
+        return true;
+    }
+
+    /**
+     * 获取图节点
+     *
+     * @param edge
+     * @return
+     */
+    private GraphNode<V> getGraphNode(Edge<V> edge) {
+        for (GraphNode<V> graphNode : this.graphNodeList) {
+            final V from = edge.getFrom();
+            if (graphNode.getVertex().equals(from)) {
+                return graphNode;
+            }
+        }
+        return null;
     }
 
     @Override
     public Edge<V> getEdge(int from, int to) {
-        return null;
+        V toVertex = getVertex(from);
+        GraphNode<V> fromNode = this.graphNodeList.get(from);
+        return fromNode.get(toVertex);
     }
 }

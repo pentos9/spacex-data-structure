@@ -2,7 +2,10 @@ package com.spacex.data.structure.graph;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 
 public class ListDirectGraph<V> implements IDirectGraph<V> {
 
@@ -89,5 +92,40 @@ public class ListDirectGraph<V> implements IDirectGraph<V> {
         V toVertex = getVertex(from);
         GraphNode<V> fromNode = this.graphNodeList.get(from);
         return fromNode.get(toVertex);
+    }
+
+    public List<V> bfs(final V root) {
+        List<V> visitedList = new ArrayList<>();
+        Queue<V> visitingQueue = new LinkedList<>();
+
+        visitingQueue.offer(root);
+        V vertex = visitingQueue.poll();
+
+        while (vertex != null) {
+            GraphNode<V> graphNode = getGraphNode(vertex);
+            if (graphNode != null) {
+                Set<Edge<V>> edgeSet = graphNode.getEdgeSet();
+                for (Edge<V> edge : edgeSet) {
+                    V target = edge.getTo();
+                    if (!visitedList.contains(target)
+                            && !visitingQueue.contains(target)) {
+                        visitingQueue.offer(target);
+                    }
+                }
+            }
+
+            visitedList.add(vertex);
+            vertex = visitingQueue.poll();
+        }
+        return visitedList;
+    }
+
+    private GraphNode<V> getGraphNode(V vertex) {
+        for (GraphNode<V> node : this.graphNodeList) {
+            if (vertex.equals(node.getVertex())) {
+                return node;
+            }
+        }
+        return null;
     }
 }

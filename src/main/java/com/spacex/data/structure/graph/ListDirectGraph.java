@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 public class ListDirectGraph<V> implements IDirectGraph<V> {
 
@@ -127,5 +128,37 @@ public class ListDirectGraph<V> implements IDirectGraph<V> {
             }
         }
         return null;
+    }
+
+    public List<V> dfs(final V root) {
+        List<V> visitedList = new ArrayList<>();
+        Stack<V> visitingStack = new Stack<>();
+
+        // 顶点压入栈顶
+        visitingStack.push(root);
+
+        while (!visitingStack.isEmpty()) {
+            V visitingVertex = visitingStack.peek();
+            GraphNode<V> graphNode = getGraphNode(visitingVertex);
+            boolean hasPush = false;
+            if (graphNode != null) {
+                Set<Edge<V>> edgeSet = graphNode.getEdgeSet();
+                for (Edge<V> edge : edgeSet) {
+                    V to = edge.getTo();
+                    if (!visitedList.contains(to)
+                            && !visitingStack.contains(to)) {
+                        visitingStack.push(to);
+                        hasPush = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!hasPush) {
+                visitedList.add(visitingStack.pop());
+            }
+        }
+
+        return visitedList;
     }
 }

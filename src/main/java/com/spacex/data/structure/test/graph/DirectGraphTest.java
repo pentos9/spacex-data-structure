@@ -1,12 +1,12 @@
 package com.spacex.data.structure.test.graph;
 
 import com.spacex.data.structure.graph.Edge;
-import com.spacex.data.structure.graph.IDirectGraph;
 import com.spacex.data.structure.graph.ListDirectGraph;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -68,6 +68,28 @@ public class DirectGraphTest {
 
     @Test
     public void testAddVertex() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        List<String> vertexList = new ArrayList<>();
+        for (int i = 0; i < total; i++) {
+            vertexList.add(String.valueOf(i));
+            directGraph.addVertex(String.valueOf(i));
+        }
 
+        int randomIndex = ThreadLocalRandom.current().nextInt(vertexList.size());
+        for (int i = 0; i < total; i++) {
+            String randomFrom = String.valueOf(ThreadLocalRandom.current().nextInt(100));
+            if (i % 3 == 0) {
+                randomFrom = String.valueOf(randomIndex);
+            }
+            String randomTo = String.valueOf(ThreadLocalRandom.current().nextInt(100));
+            directGraph.addEdge(new Edge<>(randomFrom, randomTo));
+        }
+
+
+        String randomRoot = vertexList.get(randomIndex);
+        List<String> bfsList = directGraph.bfs(randomRoot);
+        for (String vertex : bfsList) {
+            System.out.print(vertex + "\t");
+        }
     }
 }

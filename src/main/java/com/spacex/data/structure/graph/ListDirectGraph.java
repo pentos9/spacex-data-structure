@@ -90,7 +90,7 @@ public class ListDirectGraph<V> implements IDirectGraph<V> {
 
     @Override
     public Edge<V> getEdge(int from, int to) {
-        V toVertex = getVertex(from);
+        V toVertex = getVertex(to);
         GraphNode<V> fromNode = this.graphNodeList.get(from);
         return fromNode.get(toVertex);
     }

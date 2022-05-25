@@ -116,4 +116,32 @@ public class DirectGraphTest {
         Assertions.assertNotNull(edge);
         Assertions.assertNull(edgeNotExist);
     }
+
+    @Test
+    public void testRemove() {
+        int total = ThreadLocalRandom.current().nextInt(100);
+        String root = "root";
+        directGraph.addVertex(root);
+        for (int i = 0; i < total; i++) {
+            directGraph.addVertex(String.valueOf(i));
+        }
+
+        directGraph.addEdge(new Edge<>(root, String.valueOf(1)));
+
+        for (int i = 1; i < total; i++) {
+            directGraph.addEdge(new Edge<>(String.valueOf(i), String.valueOf(i + 1)));
+            directGraph.addEdge(new Edge<>(String.valueOf(i + 1), String.valueOf(i + 2)));
+        }
+        List<String> bfsList = directGraph.bfs(root);
+        for (String vertex : bfsList) {
+            System.out.print(vertex + "\t");
+        }
+
+        directGraph.removeVertex(root);
+        System.out.println("====== DFS ======");
+        bfsList = directGraph.dfs("1");
+        for (String vertex : bfsList) {
+            System.out.print(vertex + "\t");
+        }
+    }
 }

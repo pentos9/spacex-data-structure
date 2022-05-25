@@ -2,6 +2,7 @@ package com.spacex.data.structure.test.graph;
 
 import com.spacex.data.structure.graph.Edge;
 import com.spacex.data.structure.graph.ListDirectGraph;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -91,5 +92,28 @@ public class DirectGraphTest {
         for (String vertex : bfsList) {
             System.out.print(vertex + "\t");
         }
+    }
+
+    @Test
+    public void test() {
+        // init vertex
+
+        directGraph.addVertex("1");
+        directGraph.addVertex("2");
+        directGraph.addVertex("3");
+        directGraph.addVertex("4");
+        directGraph.addVertex("5");
+
+        directGraph.addEdge(new Edge<>("1", "2"));
+        directGraph.addEdge(new Edge<>("1", "3"));
+        directGraph.addEdge(new Edge<>("1", "4"));
+        directGraph.addEdge(new Edge<>("2", "3"));
+        directGraph.addEdge(new Edge<>("3", "4"));
+        directGraph.addEdge(new Edge<>("4", "5"));
+
+        Edge<String> edge = directGraph.getEdge(0, 1);
+        Edge<String> edgeNotExist = directGraph.getEdge(1, 4);
+        Assertions.assertNotNull(edge);
+        Assertions.assertNull(edgeNotExist);
     }
 }

@@ -1,7 +1,7 @@
 package com.spacex.data.structure.test.graph;
 
-import com.spacex.data.structure.graph.Edge;
-import com.spacex.data.structure.graph.ListDirectGraph;
+import com.spacex.data.structure.graph.direct.Edge;
+import com.spacex.data.structure.graph.direct.ListDirectGraph;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

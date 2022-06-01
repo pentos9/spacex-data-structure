@@ -1,4 +1,4 @@
-package com.spacex.data.structure.graph;
+package com.spacex.data.structure.graph.direct;
 
 import java.util.ArrayList;
 import java.util.Iterator;

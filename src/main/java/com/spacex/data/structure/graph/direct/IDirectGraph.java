@@ -1,4 +1,4 @@
-package com.spacex.data.structure.graph;
+package com.spacex.data.structure.graph.direct;
 
 public interface IDirectGraph<V> {
     void addVertex(final V v);

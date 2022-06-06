@@ -34,10 +34,36 @@ public class NonDirectedGraph {
 
     public NonDirectedGraph(String graphContent) {
         this.nonDirectedGraph = new LinkedHashMap<>();
-        buildGraph();
+        buildGraph(graphContent);
     }
 
-    private void buildGraph() {
+    private void buildGraph(String graphConteng) {
+        String[] lines = graphConteng.split("\n");
+        String startNodeLable, endNodeLabel;
+        Vertex startNode, endNode;
+        for (int i = 0; i < lines.length; i++) {
+            String[] nodesInfo = lines[i].split(",");
+            startNodeLable = nodesInfo[1];
+            endNodeLabel = nodesInfo[2];
 
+            endNode = nonDirectedGraph.get(endNodeLabel);
+            if (endNode == null) {
+                endNode = new Vertex(endNodeLabel);
+                nonDirectedGraph.put(endNodeLabel, endNode);
+            }
+
+            startNode = nonDirectedGraph.get(startNodeLable);
+            if (startNode == null) {
+                startNode = new Vertex(startNodeLable);
+                nonDirectedGraph.put(startNodeLable, startNode);
+            }
+
+            // 对于无向图来书来说，起点和终点都要添加边
+            Edge edge = new Edge(endNode);
+            endNode.adjEdges.add(edge);
+            startNode.adjEdges.add(edge);
+        }
+
+        startVertex = nonDirectedGraph.get(lines[0].split(",")[1]);
     }
 }

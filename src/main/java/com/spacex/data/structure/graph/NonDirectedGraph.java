@@ -116,4 +116,11 @@ public class NonDirectedGraph {
             System.out.println("distance=" + vertex.distance);
         }
     }
+
+    public void showDistanceRecursive(Vertex vertex) {
+        if (vertex.preNode != null) {
+            showDistanceRecursive(vertex.preNode);
+        }
+        System.out.println(vertex.vertexLabel + "  ");
+    }
 }

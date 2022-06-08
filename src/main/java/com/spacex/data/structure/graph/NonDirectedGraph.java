@@ -1,6 +1,7 @@
 package com.spacex.data.structure.graph;
 
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -98,5 +99,21 @@ public class NonDirectedGraph {
             }// end for
         }// end while
 
+    }
+
+    /**
+     * 打印图中所有顶点到源点的距离及路径
+     */
+    public void showDistance() {
+        Collection<Vertex> vertices = nonDirectedGraph.values();
+        for (Vertex vertex : vertices) {
+            System.out.print(vertex.vertexLabel + "<--");
+            Vertex tempVertex = vertex.preNode;
+            while (tempVertex != null) {
+                System.out.print(tempVertex.vertexLabel + "<--");
+                tempVertex = tempVertex.preNode;
+            }
+            System.out.println("distance=" + vertex.distance);
+        }
     }
 }

@@ -39,13 +39,13 @@ public class NonDirectedGraph {
         buildGraph(graphContent);
     }
 
-    private void buildGraph(String graphConteng) {
-        String[] lines = graphConteng.split("\n");
-        String startNodeLable, endNodeLabel;
+    private void buildGraph(String graphContent) {
+        String[] lines = graphContent.split("\n");
+        String startNodeLabel, endNodeLabel;
         Vertex startNode, endNode;
         for (int i = 0; i < lines.length; i++) {
             String[] nodesInfo = lines[i].split(",");
-            startNodeLable = nodesInfo[1];
+            startNodeLabel = nodesInfo[1];
             endNodeLabel = nodesInfo[2];
 
             endNode = nonDirectedGraph.get(endNodeLabel);
@@ -54,10 +54,10 @@ public class NonDirectedGraph {
                 nonDirectedGraph.put(endNodeLabel, endNode);
             }
 
-            startNode = nonDirectedGraph.get(startNodeLable);
+            startNode = nonDirectedGraph.get(startNodeLabel);
             if (startNode == null) {
-                startNode = new Vertex(startNodeLable);
-                nonDirectedGraph.put(startNodeLable, startNode);
+                startNode = new Vertex(startNodeLabel);
+                nonDirectedGraph.put(startNodeLabel, startNode);
             }
 
             // 对于无向图来书来说，起点和终点都要添加边
@@ -115,5 +115,12 @@ public class NonDirectedGraph {
             }
             System.out.println("distance=" + vertex.distance);
         }
+    }
+
+    public void showDistanceRecursive(Vertex vertex) {
+        if (vertex.preNode != null) {
+            showDistanceRecursive(vertex.preNode);
+        }
+        System.out.println(vertex.vertexLabel + "  ");
     }
 }

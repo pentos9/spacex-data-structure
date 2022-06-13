@@ -28,27 +28,45 @@ public class DirectedGraphWithMap {
         }
     }
 
-    private Map<Vertex, List<Vertex>> adjancentVertices;
+    private Map<Vertex, List<Vertex>> adjacentVertices;
 
     public DirectedGraphWithMap() {
-        this.adjancentVertices = new HashMap<>();
+        this.adjacentVertices = new HashMap<>();
     }
 
     public void addVertex(String label) {
-        this.adjancentVertices.putIfAbsent(new Vertex(label), new ArrayList<>());
+        this.adjacentVertices.putIfAbsent(new Vertex(label), new ArrayList<>());
     }
 
     public void removeVertex(String label) {
         Vertex v = new Vertex(label);
-        adjancentVertices.values().forEach(e -> e.remove(v));
-        this.adjancentVertices.remove(new Vertex(label));
+        this.adjacentVertices.values().forEach(e -> e.remove(v));
+        this.adjacentVertices.remove(new Vertex(label));
     }
 
     public void addEdge(String label1, String label2) {
-
+        Vertex v1 = new Vertex(label1);
+        Vertex v2 = new Vertex(label2);
+        this.adjacentVertices.get(v1).add(v2);
+        this.adjacentVertices.get(v2).add(v1);
     }
 
     public void removeEdge(String label1, String label2) {
+        Vertex v1 = new Vertex(label1);
+        Vertex v2 = new Vertex(label2);
+        List<Vertex> eV1 = this.adjacentVertices.get(v1);
+        List<Vertex> eV2 = this.adjacentVertices.get(v2);
 
+        if (eV1 != null) {
+            eV1.remove(v2);
+        }
+
+        if (eV2 != null) {
+            eV2.remove(v1);
+        }
+    }
+
+    public List<Vertex> getVertices(String label) {
+        return this.adjacentVertices.get(new Vertex(label));
     }
 }

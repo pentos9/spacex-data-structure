@@ -2,9 +2,12 @@ package com.spacex.data.structure.graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.Stack;
 
 public class DirectedGraphWithMap {
     private class Vertex {
@@ -25,6 +28,15 @@ public class DirectedGraphWithMap {
         @Override
         public int hashCode() {
             return Objects.hash(label);
+        }
+
+        @Override
+        public String toString() {
+            return this.label;
+        }
+
+        private DirectedGraphWithMap getOuterType() {
+            return DirectedGraphWithMap.this;
         }
     }
 
@@ -68,5 +80,31 @@ public class DirectedGraphWithMap {
 
     public List<Vertex> getVertices(String label) {
         return this.adjacentVertices.get(new Vertex(label));
+    }
+
+    public String printGraph() {
+        StringBuffer sb = new StringBuffer();
+        for (Vertex vertex : this.adjacentVertices.keySet()) {
+            sb.append(vertex);
+            sb.append(adjacentVertices.get(vertex));
+        }
+        return sb.toString();
+    }
+
+    public static Set<String> depthFirstTraversal(DirectedGraphWithMap graph, String root) {
+        Set<String> visited = new LinkedHashSet<>();
+        Stack<String> stack = new Stack<>();
+        stack.push(root);
+
+        while (!stack.isEmpty()) {
+            String vertex = stack.pop();
+            if (!visited.contains(vertex)) {
+                visited.add(vertex);
+            }
+            for (Vertex v : graph.getVertices(vertex)) {
+                stack.push(v.label);
+            }
+        }
+        return visited;
     }
 }

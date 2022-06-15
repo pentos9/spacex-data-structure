@@ -3,9 +3,11 @@ package com.spacex.data.structure.graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
@@ -91,6 +93,13 @@ public class DirectedGraphWithMap {
         return sb.toString();
     }
 
+    /**
+     * perform the depth-first traversal
+     *
+     * @param graph
+     * @param root
+     * @return
+     */
     public static Set<String> depthFirstTraversal(DirectedGraphWithMap graph, String root) {
         Set<String> visited = new LinkedHashSet<>();
         Stack<String> stack = new Stack<>();
@@ -103,6 +112,30 @@ public class DirectedGraphWithMap {
             }
             for (Vertex v : graph.getVertices(vertex)) {
                 stack.push(v.label);
+            }
+        }
+        return visited;
+    }
+
+    /**
+     * perform the breadth-first traversal
+     *
+     * @param graph
+     * @param root
+     * @return
+     */
+    public static Set<String> breathFirstTraversal(DirectedGraphWithMap graph, String root) {
+        Set<String> visited = new LinkedHashSet<>();
+        Queue<String> queue = new LinkedList<>();
+        visited.add(root);
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            String vertex = queue.poll();
+            for (Vertex v : graph.getVertices(vertex)) {
+                if (!visited.contains(v)) {
+                    visited.add(v.label);
+                    queue.add(v.label);
+                }
             }
         }
         return visited;

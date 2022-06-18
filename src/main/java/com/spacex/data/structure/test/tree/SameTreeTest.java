@@ -99,4 +99,20 @@ public class SameTreeTest {
         }
         return true;
     }
+
+    public boolean isSymmetric(TreeNode root) {
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+
+        return isCorrect(left, right);
+    }
+
+    private boolean isCorrect(TreeNode left, TreeNode right) {
+        if (left == null || right == null) {
+            return left == right;
+        }
+        return left.val == right.val
+                && isCorrect(left.left, right.right)
+                && isCorrect(left.right, right.left);
+    }
 }

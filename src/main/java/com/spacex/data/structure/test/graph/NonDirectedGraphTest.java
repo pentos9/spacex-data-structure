@@ -1,4 +1,4 @@
-package com.spacex.data.structure.test;
+package com.spacex.data.structure.test.graph;
 
 import com.spacex.data.structure.graph.NonDirectedGraph;
 import org.junit.jupiter.api.BeforeEach;

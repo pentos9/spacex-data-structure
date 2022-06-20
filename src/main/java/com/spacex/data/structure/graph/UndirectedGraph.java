@@ -25,7 +25,7 @@ public class UndirectedGraph {
     public void printGraph() {
         for (int i = 0; i < this.vertex; i++) {
             if (this.list[i].size() > 0) {
-                System.out.print("Vertex " + i + " is connected to");
+                System.out.print("Vertex " + i + " is connected to: ");
 
                 for (int j = 0; j < this.list[i].size(); j++) {
                     System.out.print(list[i].get(j) + " ");

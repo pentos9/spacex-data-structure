@@ -1,6 +1,8 @@
 package com.spacex.data.structure.test.graph;
 
-import com.spacex.data.structure.graph.UndirectedGraph;
+import com.spacex.data.structure.graph.custom.directed.AbstractDirectedGraph;
+import com.spacex.data.structure.graph.custom.directed.ReverseGraph;
+import com.spacex.data.structure.graph.custom.undirected.UndirectedGraph;
 import org.junit.jupiter.api.Test;
 
 public class UndirectedGraphTest {
@@ -21,4 +23,23 @@ public class UndirectedGraphTest {
 
         undirectedGraph.printGraph();
     }
+
+    @Test
+    public void testReverse() {
+        ReverseGraph graph = new ReverseGraph(5);
+        
+        graph.addEdge(0, 1);
+        graph.addEdge(1, 2);
+        graph.addEdge(1, 3);
+        graph.addEdge(2, 3);
+        graph.addEdge(3, 4);
+        graph.addEdge(4, 0);
+        System.out.println("---------------Original UndirectedGraph---------------------------");
+        graph.printGraph();
+        AbstractDirectedGraph reverseGraph = graph.reverse(graph);
+        System.out.println("---------------Reverse UndirectedGraph---------------------------");
+        reverseGraph.printGraph();
+    }
+
+
 }

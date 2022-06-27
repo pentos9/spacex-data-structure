@@ -22,6 +22,26 @@ public abstract class AbstractUndirectedGraph {
         this.adjList[destination].addFirst(source);
     }
 
+    public void removeEdge(int source, int destination) {
+        // remove forward edge
+
+        for (int i = 0; i < this.adjList[source].size(); i++) {
+            if (this.adjList[source].get(i) == destination) {
+                this.adjList[source].remove(i);
+                break;
+            }
+        }
+
+        // remove backward edge in undirected graph
+
+        for (int i = 0; i < this.adjList[destination].size(); i++) {
+            if (this.adjList[destination].get(i) == source) {
+                this.adjList[destination].remove(i);
+                break;
+            }
+        }
+    }
+
     public void printGraph() {
         for (int i = 0; i < this.vertices; i++) {
             LinkedList<Integer> nodeList = this.adjList[i];

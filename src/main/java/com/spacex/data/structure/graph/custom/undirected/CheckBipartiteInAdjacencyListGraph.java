@@ -53,6 +53,6 @@ public class CheckBipartiteInAdjacencyListGraph extends AbstractUndirectedGraph 
                 return false;
             }// end else if
         }
-        return false;
+        return true;
     }
 }

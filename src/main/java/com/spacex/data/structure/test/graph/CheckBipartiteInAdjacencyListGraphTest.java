@@ -15,5 +15,12 @@ public class CheckBipartiteInAdjacencyListGraphTest {
         graph.addEdge(3, 1);
 
         System.out.println(graph.isBipartite());
+
+        CheckBipartiteInAdjacencyListGraph graph2 = new CheckBipartiteInAdjacencyListGraph(4);
+        graph2.addEdge(0,1 );
+        graph2.addEdge(0,2 );
+        graph2.addEdge(2,3 );
+        graph2.addEdge(3,1 );
+        System.out.println(graph2.isBipartite());
     }
 }

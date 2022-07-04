@@ -27,6 +27,10 @@ public class HashMapDirectedGraph {
         this.adjList.put(source, adjVertexList);
     }
 
+    public boolean isVertexExist(Object vertex) {
+        return this.adjList.keySet().contains(vertex);
+    }
+
     public void dfs() {
         int vertices = this.adjList.size();
         boolean[] visited = new boolean[vertices];

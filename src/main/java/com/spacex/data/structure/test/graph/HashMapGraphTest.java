@@ -1,9 +1,11 @@
 package com.spacex.data.structure.test.graph;
 
 import com.spacex.data.structure.graph.custom.directed.HashMapDirectedGraph;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class HashMapGraphTest {
 
@@ -33,6 +35,27 @@ public class HashMapGraphTest {
         graph.printGraph();
 
         System.out.println("-----DFS start----");
+        graph.dfs();
+    }
+
+    @Test
+    public void testDFS() {
+        LinkedList<Object> vertices = new LinkedList<>();
+        int total = 10;
+        String vertexPrefix = "v-";
+        for (int i = 0; i < total; i++) {
+            vertices.add(String.valueOf(vertexPrefix + i));
+        }
+
+        HashMapDirectedGraph graph = new HashMapDirectedGraph(vertices);
+        for (int i = 0; i < vertices.size(); i++) {
+            int randomEdgeIndex = ThreadLocalRandom.current().nextInt(vertices.size());
+            Assertions.assertTrue(graph.isVertexExist(vertices.get(randomEdgeIndex)));
+            graph.addEdge(vertices.get(i), vertices.get(randomEdgeIndex));
+        }
+
+        graph.printGraph();
+        System.out.println("-----DFS----");
         graph.dfs();
     }
 }

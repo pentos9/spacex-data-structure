@@ -52,10 +52,22 @@ public class HashMapGraphTest {
             int randomEdgeIndex = ThreadLocalRandom.current().nextInt(vertices.size());
             Assertions.assertTrue(graph.isVertexExist(vertices.get(randomEdgeIndex)));
             graph.addEdge(vertices.get(i), vertices.get(randomEdgeIndex));
+
+            randomEdgeIndex = ThreadLocalRandom.current().nextInt(vertices.size());
+            if (randomEdgeIndex % 2 == 0) {
+                Assertions.assertTrue(graph.isVertexExist(vertices.get(randomEdgeIndex)));
+                graph.addEdge(vertices.get(i), vertices.get(randomEdgeIndex));
+            }
         }
 
         graph.printGraph();
         System.out.println("-----DFS----");
         graph.dfs();
+
+        System.out.println();
+        System.out.println("-----Degree--");
+        for (Object vertex : vertices) {
+            System.out.println("in=" + graph.findInDegree(vertex) + ",out=" + graph.findOutDegree(vertex));
+        }
     }
 }

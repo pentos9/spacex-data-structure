@@ -1,6 +1,7 @@
 package com.spacex.data.structure.graph.custom.directed;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,6 +30,30 @@ public class HashMapDirectedGraph {
 
     public boolean isVertexExist(Object vertex) {
         return this.adjList.keySet().contains(vertex);
+    }
+
+    public int findOutDegree(Object source) {
+        LinkedList<Object> adjVertexList = this.adjList.get(source);
+        if (adjVertexList == null) {
+            return 0;
+        }
+        // remove duplicates
+        return new LinkedList<>(new HashSet<>(adjVertexList)).size();
+    }
+
+    public int findInDegree(Object destination) {
+        int degree = 0;
+        for (Map.Entry<Object, LinkedList<Object>> entry : this.adjList.entrySet()) {
+            LinkedList<Object> adjVertexList = new LinkedList<>(new HashSet<>(entry.getValue()));// remove duplicates
+            if (!adjVertexList.isEmpty()) {
+                for (Object destinationVertex : adjVertexList) {
+                    if (destination.equals(destinationVertex)) {
+                        degree++;
+                    }
+                }
+            }
+        }
+        return degree;
     }
 
     public void dfs() {

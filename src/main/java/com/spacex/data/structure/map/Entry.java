@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Entry<K, V> {
     final K key;
-    final V value;
+    V value;
 
     Entry<K, V> next;
 
@@ -43,5 +43,13 @@ public class Entry<K, V> {
     @Override
     public int hashCode() {
         return Objects.hash(key, value, next);
+    }
+
+    @Override
+    public String toString() {
+        return "Entry{" +
+                "key=" + key +
+                ", value=" + value +
+                '}';
     }
 }

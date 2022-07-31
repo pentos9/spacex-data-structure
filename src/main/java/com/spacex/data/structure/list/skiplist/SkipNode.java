@@ -3,7 +3,7 @@ package com.spacex.data.structure.list.skiplist;
 public class SkipNode<T extends Comparable<? super T>> {
 
     private T data;
-    private SkipNode<T>[] next = (SkipNode<T>[]) new SkipNode[ISkipList.LEVELs];
+    private SkipNode<T>[] next = (SkipNode<T>[]) new SkipNode[ISkipList.LEVELS];
 
     public SkipNode(T data) {
         this.data = data;
@@ -31,7 +31,7 @@ public class SkipNode<T extends Comparable<? super T>> {
 
     public SkipNode<T> search(T data, int level, boolean print) {
         if (print) {
-            System.out.println("searching for: " + data + "at");
+            System.out.print("searching for: " + data + " at ");
             print(level);
         }
 
@@ -56,15 +56,16 @@ public class SkipNode<T extends Comparable<? super T>> {
             return;
         }
 
-        if (skipNode.data.compareTo(data) < 1) {
+        if (skipNode.getData().compareTo(current.getData()) < 1) {
             this.setNext(skipNode, level);
             skipNode.setNext(current, level);
             return;
         }
 
         while (current.getNext(level) != null
-                && current.data.compareTo(data) < 1
-                && (current.getNext(level).data.compareTo(skipNode.data) < 1)) {
+                && current.getData().compareTo(skipNode.getData()) < 1
+                && current.getNext(level).getData() != null
+                && current.getNext(level).getData().compareTo(skipNode.getData()) < 1) {
 
             current = current.getNext(level);
         }
@@ -76,7 +77,7 @@ public class SkipNode<T extends Comparable<? super T>> {
     }
 
     public void print(int level) {
-        System.out.print("level " + level + "[");
+        System.out.print("level " + level + ": [");
         int length = 0;
 
         SkipNode<T> current = this.getNext(level);
@@ -86,6 +87,14 @@ public class SkipNode<T extends Comparable<? super T>> {
             current = current.getNext(level);
         }
 
-        System.out.print("],length" + length);
+        System.out.println("],length:" + length);
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 }

@@ -49,10 +49,43 @@ public class SkipNode<T extends Comparable<? super T>> {
     }
 
     public void insert(SkipNode<T> skipNode, int level) {
+        SkipNode<T> current = this.getNext(level);
+
+        if (current == null) {
+            this.setNext(skipNode, level);
+            return;
+        }
+
+        if (skipNode.data.compareTo(data) < 1) {
+            this.setNext(skipNode, level);
+            skipNode.setNext(current, level);
+            return;
+        }
+
+        while (current.getNext(level) != null
+                && current.data.compareTo(data) < 1
+                && (current.getNext(level).data.compareTo(skipNode.data) < 1)) {
+
+            current = current.getNext(level);
+        }
+
+        SkipNode<T> successor = current.getNext(level);
+        current.setNext(skipNode, level);
+        skipNode.setNext(successor, level);
 
     }
 
     public void print(int level) {
+        System.out.print("level " + level + "[");
+        int length = 0;
 
+        SkipNode<T> current = this.getNext(level);
+        while (current != null) {
+            length++;
+            System.out.print(current.data + " ");
+            current = current.getNext(level);
+        }
+
+        System.out.print("],length" + length);
     }
 }

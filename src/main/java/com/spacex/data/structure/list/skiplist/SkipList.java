@@ -6,6 +6,7 @@ public class SkipList<T extends Comparable<? super T>> implements ISkipList<T> {
 
     private final SkipNode<T> head = new SkipNode<>(null);
     private final Random random = new Random();
+    private int size;
 
     @Override
     public void add(T data) {
@@ -16,6 +17,8 @@ public class SkipList<T extends Comparable<? super T>> implements ISkipList<T> {
                 insert(skipNode, i);
             }
         }
+
+        this.size++;
     }
 
     private void insert(SkipNode<T> skipNode, int level) {
@@ -36,7 +39,7 @@ public class SkipList<T extends Comparable<? super T>> implements ISkipList<T> {
             victim.refreshAfterDelete(i);
         }
 
-        System.out.println("deleted ...");
+        this.size--;
         return true;
     }
 
@@ -61,7 +64,7 @@ public class SkipList<T extends Comparable<? super T>> implements ISkipList<T> {
 
     @Override
     public int size() {
-        return 0;
+        return this.size;
     }
 
     @Override

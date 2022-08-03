@@ -2,6 +2,7 @@ package com.spacex.data.structure.test.list;
 
 import com.spacex.data.structure.list.skiplist.ISkipList;
 import com.spacex.data.structure.list.skiplist.SkipList;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -30,6 +31,17 @@ public class SkipListTest {
         skipList.add(String.valueOf(item));
         skipList.print();
         skipList.search(String.valueOf(item));
+    }
+
+    @Test
+    public void testSize() {
+        ISkipList<String> skipList = new SkipList<>();
+        int total = ThreadLocalRandom.current().nextInt(100);
+        for (int i = 0; i < total; i++) {
+            int random = ThreadLocalRandom.current().nextInt(100);
+            skipList.add(String.valueOf(random));
+        }
+        Assertions.assertEquals(total, skipList.size());
     }
 
     @Test

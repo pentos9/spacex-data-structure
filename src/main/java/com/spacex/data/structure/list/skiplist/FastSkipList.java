@@ -20,8 +20,20 @@ public class FastSkipList<T> {
     }
 
 
-    public boolean delete(T target) {
-        return false;
+    public void delete(int key) {
+        SkipNode<T> tempNode = this.headNode;
+        while (tempNode != null) {
+            if (tempNode.right == null) {
+                tempNode = tempNode.down;
+            } else if (tempNode.right.key == key) {
+                tempNode.right = tempNode.right.right;
+                tempNode = tempNode.down;
+            } else if (tempNode.right.key > key) {
+                tempNode = tempNode.down;
+            } else {
+                tempNode = tempNode.right;
+            }
+        }
     }
 
 

@@ -1,6 +1,7 @@
 package com.spacex.data.structure.list.skiplist;
 
 import java.util.Random;
+import java.util.Stack;
 
 public class FastSkipList<T> {
 
@@ -15,8 +16,60 @@ public class FastSkipList<T> {
         this.highLevel = 0;
     }
 
-    public void add(T data) {
+    public void add(SkipNode<T> node) {
+        int key = node.key;
+        SkipNode<T> findNode = search(key);
+        if (findNode != null) {
+            findNode.value = node.value;
+            return;
+        }
 
+        Stack<SkipNode<T>> stack = new Stack<>();
+        SkipNode<T> temp = this.headNode;
+        while (temp != null) {
+            if (temp.right == null) {
+                stack.add(temp);
+                temp = temp.down;
+            } else if (temp.right.key > key) {
+                stack.add(temp);
+                temp = temp.down;
+            } else {
+                temp = temp.right;
+            }
+        }
+
+        int level = 1;
+        SkipNode<T> downNode = null;
+        while (!stack.isEmpty()) {
+            temp = stack.pop();
+            SkipNode<T> nodeTemp = new SkipNode<>(node.key, node.value);
+            nodeTemp.down = downNode;
+            downNode = nodeTemp;
+            if (temp.right == null) {
+                temp.right = nodeTemp;
+            } else {
+                nodeTemp.right = temp.right;
+                temp.right = nodeTemp;
+            }
+
+            if (level > this.MAX_LEVEL) {
+                break;
+            }
+
+            double num = random.nextDouble();
+            if (num > 0.5) {
+                break;
+            }
+            level++;
+            if (level > this.highLevel) {
+                this.highLevel = level;
+
+                SkipNode<T> highHeadNode = new SkipNode<>(Integer.MIN_VALUE, null);
+                highHeadNode.down = this.headNode;
+                this.headNode = highHeadNode;
+                stack.add(headNode);
+            }
+        }
     }
 
 
@@ -62,7 +115,7 @@ public class FastSkipList<T> {
         SkipNode<T> tempNode = this.headNode;
         int index = 1;
         SkipNode<T> last = tempNode;
-        while (last != null) {
+        while (last.down != null) {
             last = last.down;
         }
 
@@ -70,6 +123,7 @@ public class FastSkipList<T> {
             SkipNode<T> enumNode = tempNode.right;
             SkipNode<T> enumLast = last.right;
 
+            System.out.printf("%-8s", "head->");
             while (enumLast != null && enumNode != null) {
                 if (enumLast.key == enumNode.key) {
                     System.out.printf("%-5s", enumLast.key + "->");
@@ -77,7 +131,7 @@ public class FastSkipList<T> {
                     enumNode = enumNode.right;
                 } else {
                     enumLast = enumLast.right;
-                    System.out.printf("%-s", "");
+                    System.out.printf("%-5s", "");
                 }
             }
 
@@ -87,10 +141,10 @@ public class FastSkipList<T> {
         }
     }
 
-    private static class SkipNode<T> {
+    public static class SkipNode<T> {
         int key;
         T value;
-        SkipNode right, down;
+        SkipNode<T> right, down;
 
         public SkipNode(int key, T value) {
             this.key = key;

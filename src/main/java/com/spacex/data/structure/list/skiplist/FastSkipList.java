@@ -9,6 +9,7 @@ public class FastSkipList<T> {
     private int highLevel;
     private Random random;
     final int MAX_LEVEL = 32;
+    private int size;
 
     public FastSkipList() {
         this.random = new Random();
@@ -70,22 +71,30 @@ public class FastSkipList<T> {
                 stack.add(headNode);
             }
         }
+
+        this.size++;
     }
 
 
     public void delete(int key) {
         SkipNode<T> tempNode = this.headNode;
+        boolean found = false;
         while (tempNode != null) {
             if (tempNode.right == null) {
                 tempNode = tempNode.down;
             } else if (tempNode.right.key == key) {
                 tempNode.right = tempNode.right.right;
                 tempNode = tempNode.down;
+                found = true;
             } else if (tempNode.right.key > key) {
                 tempNode = tempNode.down;
             } else {
                 tempNode = tempNode.right;
             }
+        }
+
+        if (found) {
+            this.size--;
         }
     }
 
@@ -108,7 +117,7 @@ public class FastSkipList<T> {
 
 
     public int size() {
-        return 0;
+        return this.size;
     }
 
     public void print() {

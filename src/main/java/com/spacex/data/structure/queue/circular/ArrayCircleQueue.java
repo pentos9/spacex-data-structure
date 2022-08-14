@@ -13,32 +13,28 @@ public class ArrayCircleQueue<E> implements CustomQueue<E> {
 
     // 当front赶上rear，说明队列满，令flag=0；
     // 当rear赶上front，说明队列空，令flag=1
-    private int empty;
+    //private int empty;
 
     public ArrayCircleQueue(int maxSize) {
         this.maxSize = maxSize;
         this.array = (E[]) new Object[this.maxSize];
         this.front = 0;
         this.rear = 0;
-        this.empty = 1;
     }
 
     @Override
     public int size() {
-        if (this.rear > this.front) {
-            return this.rear - this.front;
-        }
-        return this.rear + maxSize - this.front;
+        return (this.rear + this.maxSize - this.front) % this.maxSize;
     }
 
     @Override
     public boolean isEmpty() {
-        return (this.front == this.rear) && (this.empty == 1);
+        return this.front == this.rear;
     }
 
     @Override
     public boolean isFull() {
-        return this.front == this.rear && this.empty == 0;
+        return (this.rear + 1) % maxSize == this.front;
     }
 
     @Override

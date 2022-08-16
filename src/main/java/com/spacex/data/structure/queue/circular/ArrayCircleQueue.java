@@ -63,6 +63,22 @@ public class ArrayCircleQueue<E> implements CustomQueue<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new ArrayCircleQueueIterator<>();
+    }
+
+    private class ArrayCircleQueueIterator<E> implements Iterator<E> {
+        private int step;
+
+        @Override
+        public boolean hasNext() {
+            return size() == step;
+        }
+
+        @Override
+        public E next() {
+            E element = (E) ArrayCircleQueue.this.array[step];
+            step++;
+            return element;
+        }
     }
 }

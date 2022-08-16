@@ -9,11 +9,6 @@ public class ArrayCircleQueue<E> implements CustomQueue<E> {
     private int maxSize;
     private int rear;
     private int front;
-    private int size;
-
-    // 当front赶上rear，说明队列满，令flag=0；
-    // 当rear赶上front，说明队列空，令flag=1
-    //private int empty;
 
     public ArrayCircleQueue(int maxSize) {
         this.maxSize = maxSize;
@@ -39,12 +34,23 @@ public class ArrayCircleQueue<E> implements CustomQueue<E> {
 
     @Override
     public boolean enQueue(E data) {
-        return false;
+        if (isFull()) {
+            System.out.println("queue is full!");
+            return false;
+        }
+        this.array[this.rear] = data;
+        this.rear = (this.rear + 1) % this.maxSize;
+        return true;
     }
 
     @Override
     public E deQueue() {
-        return null;
+        if (isEmpty()) {
+            throw new RuntimeException("queue is empty!");
+        }
+        E frontElement = this.array[this.front];
+        this.front = (this.front + 1) % this.maxSize;
+        return frontElement;
     }
 
     @Override

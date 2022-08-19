@@ -7,9 +7,15 @@ import java.util.Iterator;
 public class ArrayCircleQueue<E> implements CustomQueue<E> {
     private E[] array;
     private int maxSize;
-    private int rear;
-    private int front;
+    private int rear;// 指向队列的最后一个元素的后一个位置，希望空出一个空间作为约定。初始值0
+    private int front;// 指向队列的第一个元素，arr[front]就是队列的第一个元素。初始值0
 
+    /**
+     * 因此，环形队列是逻辑上将数组元素array[0]和array[maxSize - 1]连接，
+     * 形成一个存放队列的环形空间。
+     *
+     * @param maxSize
+     */
     public ArrayCircleQueue(int maxSize) {
         this.maxSize = maxSize;
         this.array = (E[]) new Object[this.maxSize];

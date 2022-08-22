@@ -33,4 +33,31 @@ public class ArrayCircleQueueTest {
         }
         Assertions.assertTrue(queue.isEmpty());
     }
+
+    private void clear(ArrayCircleQueue queue) {
+        if (queue == null) {
+            return;
+        }
+
+        for (; !queue.isEmpty(); ) {
+            queue.deQueue();
+        }
+    }
+
+    @Test
+    public void testEmpty() {
+        int maxSize = 100;
+        ArrayCircleQueue<String> queue = produce(maxSize);
+        clear(queue);
+
+        Assertions.assertTrue(queue.isEmpty());
+
+        for (int i = 0; i < maxSize; i++) {
+            queue.enQueue(UUID.randomUUID().toString());
+        }
+        Assertions.assertFalse(queue.isEmpty());
+
+        clear(queue);
+        Assertions.assertTrue(queue.isEmpty());
+    }
 }

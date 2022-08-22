@@ -34,6 +34,22 @@ public class ArrayCircleQueueTest {
         Assertions.assertTrue(queue.isEmpty());
     }
 
+    @Test
+    public void testPeek() {
+        int maxSize = 100;
+        ArrayCircleQueue<String> queue = produce(maxSize);
+
+        for (; !queue.isEmpty(); ) {
+            String peekElement = queue.peek();
+            System.out.println(peekElement);
+            String item = queue.deQueue();
+            Assertions.assertEquals(item, peekElement);
+        }
+
+        clear(queue);
+        Assertions.assertTrue(queue.isEmpty());
+    }
+
     private void clear(ArrayCircleQueue queue) {
         if (queue == null) {
             return;

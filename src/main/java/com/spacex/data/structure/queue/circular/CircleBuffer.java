@@ -8,11 +8,20 @@ public class CircleBuffer<E> {
     private volatile int readSequence;
 
     public CircleBuffer(int capacity) {
-        this.capacity = capacity;
+        this.capacity = capacity < 1 ? DEFAULT_CAPACITY : capacity;
+        this.data = (E[]) new Object[this.capacity];
+        this.readSequence = 0;
+        this.writeSequence = 0;
     }
 
     public boolean offer(E element) {
-        return true;
+        if (isNotFull()) {
+            int nextWriteSeq = this.writeSequence + 1;
+            this.data[nextWriteSeq % capacity] = element;
+            this.writeSequence++;
+            return true;
+        }
+        return false;
     }
 
     public E poll() {
@@ -24,15 +33,15 @@ public class CircleBuffer<E> {
     }
 
     public int size() {
-        return 0;
+        return (writeSequence - readSequence) + 1;
     }
 
     public boolean isEmpty() {
-        return false;
+        return writeSequence < readSequence;
     }
 
     public boolean isFull() {
-        return false;
+        return size() >= capacity;
     }
 
     private boolean isNotEmpty() {

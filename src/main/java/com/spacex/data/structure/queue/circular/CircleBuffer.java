@@ -25,6 +25,11 @@ public class CircleBuffer<E> {
     }
 
     public E poll() {
+        if (isNotEmpty()) {
+            E nextValue = this.data[readSequence % capacity];
+            this.readSequence++;
+            return nextValue;
+        }
         return null;
     }
 
